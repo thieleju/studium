@@ -11,8 +11,8 @@ public class Main {
 
   public static String getInput() {
     Scanner s = new Scanner(System.in);
-    String str = s.nextLine();
+    String input = s.nextLine();
     s.close();
-    return str;
+    return input;
   }
 }
