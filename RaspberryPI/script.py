@@ -11,8 +11,8 @@ iterations = input("How many times?")
 
 GPIO.setup(pin, GPIO.OUT)
 
-for i in range(itarations):
-	GPIO.output(pin, GPIO.HIGH)
-	time.sleep(0.5)
-	GPIO.output(pin, GPIO.LOW)
-	time.sleep(0.5)
+for i in range(iterations):
+    GPIO.output(pin, GPIO.HIGH)
+    time.sleep(0.5)
+    GPIO.output(pin, GPIO.LOW)
+    time.sleep(0.5)
