@@ -5,9 +5,9 @@ import time
 # GPIO number
 GPIO.setmode(GPIO.BCM)
 
-pin = input("Choose output bin to blink")
+pin = input("Choose output bin to blink\n")
 
-iterations = input("How many times?")
+iterations = input("How many times?\n")
 
 GPIO.setup(pin, GPIO.OUT)
 
