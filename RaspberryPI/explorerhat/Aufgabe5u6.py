@@ -48,7 +48,7 @@ def binToDec(binArray):
     #          3rd iteration (i=2):
     #               binArray[2] == 1 -> sum = 1 + 2^2 -> sum = 1 + 4 = 5
     #          4th iteration (i=3):
-    #               binArray[3] == 0 -> false
+    #               binArray[3] == 1 -> false
     sum = 0
     for i, value in enumerate(reversed(binArray)):
         if value == 1:
