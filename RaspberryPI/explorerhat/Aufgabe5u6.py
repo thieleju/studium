@@ -12,13 +12,13 @@ def decToBin(decimal):
         print("decimal out of bounds!")
         return
 
-    c = 0
+    c = len(binArray)
     while temp > 0:
         binArray[c] = temp % 2
-        temp /= 2
-        c += 1
+        temp //= 2
+        c -= 1
 
-    print("Bin array: "+str(binArray))
+    print("Decimal: "+str(decimal)+" binArray: "+str(binArray))
     return binArray
 
 
