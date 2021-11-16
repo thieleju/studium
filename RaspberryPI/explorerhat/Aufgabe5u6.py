@@ -12,13 +12,23 @@ def decToBin(decimal):
         print("decimal out of bounds!")
         return
 
-    c = len(binArray)
+    # example: decimal = 5
+    #          1st iteration (i=3):
+    #               binArray[3] = 5 % 2 = 1 -> [0, 0, 0, 1]
+    #               temp = 5 / 2 = 2
+    #          2nd iteration (i=2):
+    #               binArray[2] = 2 % 2 = 0 -> [0, 0, 0, 1]
+    #               temp = 2 / 2 = 1
+    #          3rd iteration (i=1):
+    #               binArray[1] = 1 % 2 = 1 -> [0, 1, 0, 1]
+    #               temp = 1 / 2 = 0
+    #          temp = 0 -> exit loop, binArray = [0, 1, 0, 1]
+    i = len(binArray) - 1  # 4-1 = 3
     while temp > 0:
-        binArray[c] = temp % 2
-        temp //= 2
-        c -= 1
+        binArray[i] = temp % 2
+        temp //= 2  # double / is needed in python version 3 or greater, otherwise /= returns fractions
+        i -= 1
 
-    print("Decimal: "+str(decimal)+" binArray: "+str(binArray))
     return binArray
 
 
@@ -27,12 +37,24 @@ def binToDec(binArray):
         print("binArray too many elements")
         return
 
-    dec = 0
+    # i is the index
+    # value is the value of the binArray[i]
+    # example: binArray = [0, 1, 0, 1] (5 in decimal)
+    #          reverse array to [1, 0, 1, 0]
+    #          1st iteration (i=0):
+    #               binArray[0] == 1 -> sum = 0 + 2^0 -> sum = 1
+    #          2nd iteration (i=1):
+    #               binArray[1] == 1 -> false
+    #          3rd iteration (i=2):
+    #               binArray[2] == 1 -> sum = 1 + 2^2 -> sum = 1 + 4 = 5
+    #          4th iteration (i=3):
+    #               binArray[3] == 0 -> false
+    sum = 0
     for i, value in enumerate(reversed(binArray)):
         if value == 1:
-            dec += 2**i
+            sum += 2**i
 
-    return dec
+    return sum
 
 
 def visualizeBinary(decimal):
@@ -40,9 +62,9 @@ def visualizeBinary(decimal):
 
     for i in range(4):
         if arr[i] == 1:
-            hat.light[3 - i].on()
+            hat.light[i].on()
         elif arr[i] == 0:
-            hat.light[3 - i].off()
+            hat.light[i].off()
 
 
 def increaseCounter():
@@ -71,12 +93,6 @@ def decreaseCounter():
     visualizeBinary(counterInDec)
 
 
-# globals
-counterInDec = 0
-counterInBin = [0, 0, 0, 0]
-nim = False
-
-
 def evaluateButtons(channel, event):
     global nim
     global counterInDec
@@ -101,16 +117,28 @@ def evaluateButtons(channel, event):
             if channel == 8:
                 nim = False
             if channel <= 4:
-                if counterInBin[channel-1] == 1:
-                    counterInBin[channel-1] = 0
-                else:
-                    counterInBin[channel-1] = 1
-                # toggle lights on off
+                # toggle bits
+                # example: button2 pressed(channel=2), binArray = [0, 0, 0, 1] (1 in decimal)
+                #          -> counterInBin[2-1] = 1 - counterInBin[2-1]
+                #          -> [0, 0, x, 1] is switched to...
+                #                  if x = 0: [0, 0, 0, 1] -> [0, 0, 1-0, 1] -> [0, 0, 1, 1]
+                #                  if x = 1: [0, 0, 1, 1] -> [0, 0, 1-1, 1] -> [0, 0, 0, 1]
+                counterInBin[channel-1] = 1 - counterInBin[channel-1]
+
+                # convert binary to decimal
                 counterInDec = binToDec(counterInBin)
+
+                # toggle lights on off
                 visualizeBinary(counterInDec)
 
-    print("in evaluateButtons", nim, counterInBin, counterInDec)
+    print("Button Press on "+str(channel),
+          "NIM="+str(nim), counterInBin, counterInDec)
 
+
+# Global variables
+counterInDec = 0
+counterInBin = [0, 0, 0, 0]
+nim = False
 
 hat.touch.pressed(evaluateButtons)
 hat.pause()
