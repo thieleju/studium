@@ -1,6 +1,6 @@
 # Studium Repository
 
-Sammlung von Projekten in Programmiertechnik I
+Sammlung von Projekten in Programmiertechnik I, IT-Hardware und Wahlfächern
 
 <br>
 
