@@ -5,17 +5,18 @@ import java.util.Scanner;
 public class Main {
 
   public static void main(String[] args) {
-    // System.out.println("Please enter your name:");
-    // System.out.println("hello " + getInput());
 
-    Person p1 = new Person(22, "Max", 2290.0, 'm', false);
-    p1.printInfo();
+    // Person p1 = new Person(22, "Max", 2290.0, 'm', false);
+    // p1.printInfo();
 
-    Aufgabe42 a = new Aufgabe42();
-    a.print();
+    // Aufgabe4 a4 = new Aufgabe4();
+    // a.print1();
+    // a.print2();
 
-    Aufgabe44 a2 = new Aufgabe44();
-    a2.print();
+    // Aufgabe5 a5 = new Aufgabe5();
+    // a5.print1();
+    // a5.print2();
+    // a5.print3();
   }
 
   public static String getInput() {
