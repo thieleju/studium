@@ -23,14 +23,9 @@ hat.output[2].off()
 
 
 def evaluateButtons(channel, event):
-    # count up: high = output off
-    #   CPD = high
-    #   CPU = output 0 (low to high)
-
-    # count down: high = output off
-    #   CPD = output 1 (low to high)
-    #   CPU = high
-
+    # count up:
+    #   CPD = high (output 1 off)
+    #   CPU = output 0 from on to off (low to high)
     # hochzählen, CPU flanke, CPD auf High
     if channel == 6 and event == 'press':
         hat.output[0].on()
@@ -38,7 +33,9 @@ def evaluateButtons(channel, event):
     if channel == 6 and event == 'release':
         hat.output[0].off()
 
-    # runter zählen
+    # count down:
+    #   CPD = output 1 from on to off (low to high)
+    #   CPU = high (output 0 off)
     if channel == 7 and event == 'press':
         hat.output[1].on()
         hat.output[0].off()
