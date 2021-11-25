@@ -40,7 +40,7 @@ def evaluateButtons(channel, event):
         hat.output[1].on()
         hat.output[0].off()
     if channel == 7 and event == 'release':
-        hat.output[0].off()
+        hat.output[1].off()
 
     # flanke für reset
     if channel == 8 and event == 'press':
