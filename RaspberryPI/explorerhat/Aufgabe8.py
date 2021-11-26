@@ -41,8 +41,8 @@ def pedreq(channel, event):
 hat.touch.pressed(pedreq)
 
 while 1:
-    hat.output[1].write(stateToCode(state)[1])
     hat.output[0].write(stateToCode(state)[0])
+    hat.output[1].write(stateToCode(state)[1])
 
     print("code ist ", stateToCode(state))
 
