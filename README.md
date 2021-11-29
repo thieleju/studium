@@ -6,10 +6,10 @@ Sammlung von Projekten in Programmiertechnik I, IT-Hardware und Wahlfächern
 
 > Projekte
 
-| Sprache       | Name              | Bezeichnung               | Datum      |
-| ------------- | ----------------- | ------------------------- | ---------- |
-| Java          | Hello_World       | Erstes simples Programm   | 11.10.2021 |
-| Python/Matlab | JupyterNotebooks  | Mehrere Jupyter Notebooks | 18.10.2021 |
-| Python/Matlab | DSP_Python_Matlab | Projekte für DSP          | 25.10.2021 |
-| Java          | Übung             | Find The Promt            | 25.10.2021 |
-| Python        | RaspberryPI       | Explorerhat Scripte       | 16.11.2021 |
+| Sprache       | Name               | Bezeichnung                             |
+| ------------- | ------------------ | --------------------------------------- |
+| Java          | Übungsaufgaben     | Sammlung aller Übungsaufgaben in Prog I |
+| Python        | JupyterNotebooks   | Mehrere Jupyter Notebooks               |
+| Python/Matlab | DSP_Python_Matlab  | Projekte für DSP                        |
+| Python        | RaspberryPI        | Explorerhat Scripte                     |
+| Java          | GitHubCopilotTests | Playing with GitHub Copilot             |
