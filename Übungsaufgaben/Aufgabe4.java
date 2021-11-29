@@ -1,4 +1,4 @@
-package Hello_World;
+package Übungsaufgaben;
 
 public class Aufgabe4 {
 
