@@ -1,7 +1,9 @@
-package FindThePromt;
+package Übungsaufgaben;
 
-class FindThePromt {
-  public static void main(String[] args) {
+public class Aufgabe3OderSo {
+
+  // find the prompt
+  public void print() {
     int x = 0;
     int y = 0;
 
