@@ -74,4 +74,4 @@ while 1:
         hat.light.green.off()
         state = "rot"
 
-time.sleep(waitingtime)
+    time.sleep(waitingtime)
