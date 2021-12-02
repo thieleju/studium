@@ -62,8 +62,8 @@ hat.touch.pressed(pedreq)
 while 1:
     if keepGreen == 1:
         # keep lights green because pedestrian is crossing the street (state still changes)
-        hat.output[0].write(0)
-        hat.output[1].write(0)
+        hat.output[0].write(stateToCode("gruen")[0])
+        hat.output[1].write(stateToCode("gruen")[1])
         setLights("gruen")
     else:
         hat.output[0].write(stateToCode(state)[0])
