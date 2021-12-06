@@ -6,14 +6,14 @@ public class Main {
 
   public static void main(String[] args) {
 
-    // Person p1 = new Person(22, "Max", 2290.0, 'm', false);
+    Person p1 = new Person(22, "Max", 2290.0, 'm', false);
     // p1.printInfo();
 
-    // Aufgabe4 a4 = new Aufgabe4();
+    Aufgabe4 a4 = new Aufgabe4();
     // a.print1();
     // a.print2();
 
-    // Aufgabe5 a5 = new Aufgabe5();
+    Aufgabe5 a5 = new Aufgabe5();
     // a5.print1();
     // a5.print2();
     // a5.print3();
@@ -28,7 +28,10 @@ public class Main {
     // a6.print5(124);
     // a6.print6(124);
     // a6.print7(5);
-    a6.print8(5);
+    // a6.print8(5);
+
+    Aufgabe7 a7 = new Aufgabe7();
+    
 
   }
 
