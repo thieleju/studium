@@ -107,13 +107,14 @@ public class Aufgabe8 {
   // macht. Lassen Sie den Code laufen. Hat sich Ihre Annahme bestätigt?
   // Machen Sie eine Skizze, die hilft zu verstehen, was passiert. Alternativ zur
   // Skizze: Beschreiben Sie natürlichsprachlich, wie der Algorithmus
-  // funktioniert. Kommentieren Sie den
-  // Code derart, dass dieser einfach verständlich ist.
+  // funktioniert. Kommentieren Sie den Code derart, dass dieser einfach
+  // verständlich ist.
   public int[] bubbleSort(int[] arr) {
     // loop through outer array for each element in the array
     for (int i = 0; i < arr.length - 1; i++) {
-      // loop through inner array until i is reached -> move first number as far as
-      // possible to the right
+      // loop through inner array until i is reached (this is to not check a fixed
+      // number pair)
+      // -> move first number to the far right
       for (int j = 0; j < arr.length - i - 1; j++)
         // check if swap is required
         if (arr[j] > arr[j + 1]) {
