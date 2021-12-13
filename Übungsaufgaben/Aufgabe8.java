@@ -110,8 +110,10 @@ public class Aufgabe8 {
   // funktioniert. Kommentieren Sie den
   // Code derart, dass dieser einfach verständlich ist.
   public int[] bubbleSort(int[] arr) {
+    // loop through outer array for each element in the array
     for (int i = 0; i < arr.length - 1; i++) {
-      // loop through inner array
+      // loop through inner array until i is reached -> move first number as far as
+      // possible to the right
       for (int j = 0; j < arr.length - i - 1; j++)
         // check if swap is required
         if (arr[j] > arr[j + 1]) {
