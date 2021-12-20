@@ -23,23 +23,32 @@ public class Aufgabe8 {
     return b;
   }
 
-  // 8.3 und 8.4
-  // Schreiben Sie eine Methode, die ein integer-Array um eine Position
-  // nach rechts bzw. nach links rotiert. (Alternativ können Sie auch zwei
-  // Methoden mit Links- und
-  // Rechtsrotation erstellen).
+  /**
+   * 8.3 und 8.4
+   * This function rotates the values of an array by n and in direction lef/right
+   * Schreiben Sie eine Methode, die ein integer-Array um eine Position
+   * nach rechts bzw. nach links rotiert. (Alternativ können Sie auch zwei
+   * Methoden mit Links- und
+   * Rechtsrotation erstellen).
+   * 
+   * @param array the array which should be rotated
+   * @param n     the amount of rotations to one side
+   * @param left  if true rotate left, if false rotate right
+   * @return the new rotated array
+   */
   public int[] rotate(int[] array, int n, boolean left) {
+    // Create new copy of array
     int[] newArray = arrayCopy(array);
-    if (left) {
-      for (int i = 0; i < array.length; i++) {
-        int pos = (i + n) % array.length;
-        newArray[i] = array[pos];
-      }
-    } else {
-      for (int i = 0; i < array.length; i++) {
-        int pos = (i + array.length - n) % array.length;
-        newArray[i] = array[pos];
-      }
+    // rotate to left or right by n
+    for (int i = 0; i < array.length; i++) {
+      // calculate new position
+      int pos;
+      if (left)
+        pos = (i + n) % array.length;
+      else
+        pos = (i + array.length - n) % array.length;
+      // copy value from old array at pos
+      newArray[i] = array[pos];
     }
     return newArray;
   }
@@ -125,5 +134,21 @@ public class Aufgabe8 {
         }
     }
     return arr;
+  }
+
+  public void print(Aufgabe8 a8) {
+
+    int[] array = { 1, 2, 3, 4 };
+    a8.print81(array);
+    a8.print81(a8.arrayCopy(array));
+    a8.print81(a8.rotate(array, 1, false));
+    a8.print81(a8.rotate(array, 1, true));
+
+    a8.zahlWuerfeln(6);
+    a8.doppelteZahlenWürfeln(6);
+    a8.wortgruppen();
+
+    int[] unsorted = { 4, 6, 1, 7, 9, 25, 23 };
+    a8.print81(a8.bubbleSort(unsorted));
   }
 }

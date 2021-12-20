@@ -2,6 +2,11 @@ package Übungsaufgaben;
 
 import java.util.Scanner;
 
+import Übungsaufgaben.Aufgabe9.Aufgabe9;
+import Übungsaufgaben.Aufgabe9.Buch;
+import Übungsaufgaben.Aufgabe9.Mitarbeiter;
+import Übungsaufgaben.Aufgabe9.SchachSpieler;
+
 public class Main {
 
   public static void main(String[] args) {
@@ -13,18 +18,11 @@ public class Main {
     Aufgabe6 a6 = new Aufgabe6();
     Aufgabe7 a7 = new Aufgabe7();
     Aufgabe8 a8 = new Aufgabe8();
-    int[] array = { 1, 2, 3, 4 };
+    // a8.print(a8);
 
-    a8.print81(array);
-    // a8.print81(a8.arrayCopy(array));
-    a8.print81(a8.rotate(array, 1, false));
-    a8.print81(a8.rotate(array, 1, true));
-    a8.zahlWuerfeln(6);
-    a8.doppelteZahlenWürfeln(6);
-    a8.wortgruppen();
+    Aufgabe9 a9 = new Aufgabe9();
+    a9.print();
 
-    int[] unsorted = { 4, 6, 1, 7, 9, 25, 23 };
-    a8.print81(a8.bubbleSort(unsorted));
   }
 
   public static String getInput() {
