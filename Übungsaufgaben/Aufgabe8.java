@@ -1,7 +1,5 @@
 package Übungsaufgaben;
 
-import java.util.ArrayList;
-
 public class Aufgabe8 {
 
   // 8.1
