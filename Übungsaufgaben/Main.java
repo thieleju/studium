@@ -21,7 +21,7 @@ public class Main {
     // a8.print(a8);
 
     Aufgabe9 a9 = new Aufgabe9();
-    a9.print();
+    // a9.print();
 
   }
 
