@@ -14,7 +14,7 @@ public class Mitarbeiter {
         anzahlMitarbeiter++;
     }
 
-    public int getAnzahlMitarbeiter() {
+    public static int getAnzahlMitarbeiter() {
         return anzahlMitarbeiter;
     }
 

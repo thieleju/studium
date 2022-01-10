@@ -1,14 +1,21 @@
 package Übungsaufgaben.Aufgabe10;
 
 public class SchachSpieler {
+
     private String name;
     private int alter;
-    private static int startNummer = 0;
+    private int startNummer;
+    private static int schachspielerAnzahl = 0;
 
     public SchachSpieler(String name, int alter) {
         this.name = name;
         this.alter = alter;
-        startNummer++;
+        schachspielerAnzahl++;
+        this.startNummer = schachspielerAnzahl;
+    }
+
+    public int getStartnummer() {
+        return startNummer;
     }
 
     public String getName() {
