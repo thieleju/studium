@@ -3,9 +3,7 @@ package Übungsaufgaben;
 import java.util.Scanner;
 
 import Übungsaufgaben.Aufgabe9.Aufgabe9;
-import Übungsaufgaben.Aufgabe9.Buch;
-import Übungsaufgaben.Aufgabe9.Mitarbeiter;
-import Übungsaufgaben.Aufgabe9.SchachSpieler;
+import Übungsaufgaben.Aufgabe10.Aufgabe10;
 
 public class Main {
 
@@ -18,10 +16,9 @@ public class Main {
     Aufgabe6 a6 = new Aufgabe6();
     Aufgabe7 a7 = new Aufgabe7();
     Aufgabe8 a8 = new Aufgabe8();
-    // a8.print(a8);
-
     Aufgabe9 a9 = new Aufgabe9();
-    // a9.print();
+    Aufgabe10 a10 = new Aufgabe10();
+    a10.print();
 
   }
 
