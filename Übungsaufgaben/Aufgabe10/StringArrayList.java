@@ -55,7 +55,7 @@ public class StringArrayList {
     // prüfe ob voll bzw ob keine letzte Stelle gefunden wurde
     if (indexLetzteFreieStelle == -1) {
       // Größe erweitern und neues Array erzeugen
-      this.size++;
+      this.size += 1;
       String[] neuesArray = new String[this.size];
       // kopieren aller alter Werte in das neue Array
       for (int i = 0; i < this.array.length; i++) {
