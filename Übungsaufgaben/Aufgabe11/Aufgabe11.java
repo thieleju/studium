@@ -1,5 +1,7 @@
 package Übungsaufgaben.Aufgabe11;
 
+import java.util.Random;
+
 public class Aufgabe11 {
 
   public void print() {
@@ -127,5 +129,75 @@ public class Aufgabe11 {
     // 12. Erläutern Sie den Aufbau ihrer Daten aus Zeile 01 – 03 grafisch analog
     // zur Aufgabe 3
 
+    // 11.8
+    // 1. Erstellen Sie eine Klasse Boot, mit der privaten Instanzvariablen groesse
+    // (gibt die Länge des Boots in cm an) und der privaten Instanzvariablen name.
+
+    // 2. Stellen Sie einen Konstruktor bereit, der das Boot mit der übergebenen
+    // Größe und dem Namen initialisiert. Es soll weder ein parameterloser
+    // Konstruktor noch ein Konstruktor, der lediglich den Namen oder die Größe
+    // initialisiert, definiert sein
+
+    // 3. Stellen Sie einen getter und einen setter für die Instanzvariable groesse
+    // bereit.
+
+    // 4. Definieren Sie 3 Klassen, die sich direkt von der Klasse Boot ableiten und
+    // definieren Sie in den jeweiligen Klassen einen Konstrukor:
+    // • RuderBoot
+    // • SegelBoot
+    // • MotorBoot
+
+    // 5. Definieren Sie eine Methode
+    // public String toString ()
+
+    // 6. Siehe Klasse Hafen
+
+    // 7. Schreiben Sie eine Methode, die die Boote nach der Größe sortiert.
+    // Verändern Sie dabei aber nicht die Liegeplatzzuordnung im Hafen, der
+    // Hafenmeister wird es Ihnen danken. Verwenden Sie hierfür den
+    // Bubble-Sort-Algorithmus. Greifen Sie dabei NICHT auf eine vordefinierte
+    // Java-Bibliothek zurück
+
+    final int amount = 25;
+    final double minGroesse = 100;
+    final double maxGroesse = 1000;
+
+    Hafen hafen = new Hafen(amount);
+
+    // generate a bunch of random boats and put them in the hafen
+    for (int i = 0; i < amount; i++) {
+      // generate random groesse and round by 2 digits
+      double groesse = Math.round(randDouble(minGroesse, maxGroesse) * 100.0) / 100.0;
+      // add random boat to hafen
+      switch (randInt(1, 3)) {
+        case 1:
+          hafen.addBoot(new RuderBoot(groesse, "Ruderboot " + (i + 1)));
+          break;
+        case 2:
+          hafen.addBoot(new SegelBoot(groesse, "Segelboot " + (i + 1)));
+          break;
+        case 3:
+          hafen.addBoot(new MotorBoot(groesse, "Motorboot " + (i + 1)));
+          break;
+      }
+    }
+
+    // print unsorted hafen
+    hafen.printHafen();
+
+    // print sorted hafen
+    hafen.printBubbleSortedHafenByGroesse();
+  }
+
+  public static int randInt(int min, int max) {
+    Random rand = new Random();
+    int randomNum = rand.nextInt((max - min) + 1) + min;
+    return randomNum;
+  }
+
+  public static double randDouble(double min, double max) {
+    Random rand = new Random();
+    double randomNum = rand.nextDouble() * (max - min) + min;
+    return randomNum;
   }
 }
