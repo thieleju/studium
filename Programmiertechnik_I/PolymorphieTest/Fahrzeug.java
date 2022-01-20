@@ -2,12 +2,20 @@ package PolymorphieTest;
 
 public class Fahrzeug {
 
-  protected int geschwindigkeit;
-  protected int räder;
-  protected int sitze;
+  protected String fahrzeugTyp;
+  protected String marke;
 
-  public void printGeräusche() {
-    System.out.println("*Fahrzeuggeräusche*");
+  public Fahrzeug(String fahrzeugTyp) {
+    this.fahrzeugTyp = fahrzeugTyp;
+  }
+
+  public Fahrzeug(String fahrzeugTyp, String marke) {
+    this.fahrzeugTyp = fahrzeugTyp;
+    this.marke = marke;
+  }
+
+  public void fahren() {
+    System.out.println(fahrzeugTyp + " fährt");
   }
 
 }
