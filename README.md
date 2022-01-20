@@ -1,15 +1,14 @@
 # Studium Repository
 
-Sammlung von Projekten in Programmiertechnik I, IT-Hardware und Wahlfächern
+Codesammlung von Projekten in Programmiertechnik I, IT-Hardware, Mathe I und Wahlfächern
 
 <br>
 
 > Projekte
 
-| Sprache       | Name               | Bezeichnung                             |
-| ------------- | ------------------ | --------------------------------------- |
-| Java          | Übungsaufgaben     | Sammlung aller Übungsaufgaben in Prog I |
-| Python        | Mathe              | Pythoncode für Mathe                    |
-| Python/Matlab | DSP_Python_Matlab  | Projekte für DSP                        |
-| Python        | RaspberryPI        | Explorerhat Scripte                     |
-| Java          | GitHubCopilotTests | Playing with GitHub Copilot             |
+| Ordner                 | Sprache       | Bezeichnung                           |
+| ---------------------- | ------------- | ------------------------------------- |
+| Grundlagen IT-Hardware | Python        | Übungsaufgaben zum Fach               |
+| Mathe I                | Python        | Skripte für mathematische Algorithmen |
+| Programmiertechnik I   | Java          | Übungsaufgaben zum Fach               |
+| sonstiges              | Java & Python | Wahlfach DSP, Github Copilot tests... |
