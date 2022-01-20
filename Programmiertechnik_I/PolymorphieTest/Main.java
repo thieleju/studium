@@ -6,5 +6,13 @@ public class Main {
 
     Fahrzeug[] fahrzeuge = new Fahrzeug[3];
 
+    fahrzeuge[0] = new Auto("BMW");
+    fahrzeuge[1] = new Roller();
+    fahrzeuge[2] = new Auto("Audi");
+
+    for (Fahrzeug f : fahrzeuge) {
+      f.fahren();
+    }
+
   }
 }

@@ -1,5 +1,9 @@
 package PolymorphieTest;
 
-public class Roller {
+public class Roller extends Fahrzeug {
+
+  public Roller() {
+    super("Roller");
+  }
 
 }
