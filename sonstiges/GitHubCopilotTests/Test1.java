@@ -1,4 +1,4 @@
-package GitHubCopilotTests;
+package sonstiges.GitHubCopilotTests;
 
 public class Test1 {
 
