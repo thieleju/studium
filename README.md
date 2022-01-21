@@ -4,7 +4,6 @@ Codesammlung von Projekten in Programmiertechnik I, IT-Hardware, Mathe I und Wah
 
 <br>
 
-> Projekte
 
 | Ordner                 | Sprache       | Bezeichnung                           |
 | ---------------------- | ------------- | ------------------------------------- |
