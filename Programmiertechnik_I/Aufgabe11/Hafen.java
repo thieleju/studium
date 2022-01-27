@@ -51,6 +51,7 @@ public class Hafen {
   public Boot getGroessteBoot() {
     double groessteGroesse = 0;
     int groessteIndex = 0;
+
     for (int i = 0; i < liegeplaetze.length; i++) {
       if (liegeplaetze[i] != null) {
         // liegeplatz belegt
@@ -68,6 +69,7 @@ public class Hafen {
   public Boot getKleinsteBoot() {
     double kleinsteGroesse = Double.POSITIVE_INFINITY;
     int kleinsteIndex = 0;
+
     for (int i = 0; i < liegeplaetze.length; i++) {
       // liegeplatz belegt
       if (liegeplaetze[i] != null) {
