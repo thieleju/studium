@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 import Aufgabe9.Aufgabe9;
 import Aufgabe10.Aufgabe10;
+import Aufgabe12.Aufgabe12;
 
 public class Main {
 
@@ -17,8 +18,9 @@ public class Main {
     Aufgabe9 a9 = new Aufgabe9();
     Aufgabe10 a10 = new Aufgabe10();
     Aufgabe11 a11 = new Aufgabe11();
+    Aufgabe12 a12 = new Aufgabe12();
 
-    a11.print();
+    a12.print();
 
   }
 
