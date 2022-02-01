@@ -97,10 +97,11 @@ if __name__ == "__main__":
     valid = False
     while not valid:
         # Get daily credit increase from userinput
-        userinput = None
+        userinput = input(
+            "How many credits do you get per day? Example: 2376500 (q=quit)\n")
+
+        # handle string to int conversion error
         try:
-            userinput = input(
-                "How many credits do you get per day? Example: 2376500 (q=quit)\n")
             creditsDailyAdded = int(userinput)
         except:
             if userinput == "q":
