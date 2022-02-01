@@ -100,14 +100,15 @@ if __name__ == "__main__":
         userinput = input(
             "How many credits do you get per day? Example: 2376500 (q=quit)\n")
 
+        # handle exit
+        if userinput == "q":
+            sys.exit()
+
         # handle string to int conversion error
         try:
             creditsDailyAdded = int(userinput)
         except:
-            if userinput == "q":
-                sys.exit()
-            else:
-                print("Please enter a valid Integer!")
+            print("Please enter a valid Integer!")
             continue
 
         # handle minimum input
