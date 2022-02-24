@@ -1,6 +1,6 @@
 # Studium Repository
 
-Codesammlung von Projekten in Programmiertechnik I, IT-Hardware, Mathe I und Wahlfächern
+Codesammlung von Projekten in Programmiertechnik, IT-Hardware, Mathe, etc.
 
 <br>
 
