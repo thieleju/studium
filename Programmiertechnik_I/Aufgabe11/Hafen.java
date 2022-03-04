@@ -1,3 +1,5 @@
+package Aufgabe11;
+
 
 // 6. Definieren Sie eine Klasse Hafen, die eine private Instanzvariable hat,
 // die ein Array von Booten darstellt (das sind die Liegeplätze am Hafen).
