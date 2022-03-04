@@ -39,7 +39,7 @@ public class Aufgabe12 {
     System.out.println(buch1.getVerlag().getName());
     System.out.println(buch3.getVerlag().getName());
     System.out.println(buch4.getVerlag().getName());
-    System.out.println(buch2.getVerlag().getName());
+    // System.out.println(buch2.getVerlag().getName());
 
   }
 }

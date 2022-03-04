@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 import Aufgabe9.Aufgabe9;
 import Aufgabe10.Aufgabe10;
+import Aufgabe11.Aufgabe11;
 import Aufgabe12.Aufgabe12;
 
 public class Main {
