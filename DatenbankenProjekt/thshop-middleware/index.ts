@@ -23,8 +23,6 @@ app.use(
   })
 );
 
-// middleware able to get requestors ip by req.ip
-app.set("trust proxy", true);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -48,15 +46,12 @@ app.get("/", (req: any, res: any) => {
 
 // import routes
 import authRouter from "./routes/auth";
+import publicRouter from "./routes/public";
 app.use("/auth", authRouter);
+app.use("/public", publicRouter);
 
 // Create server object
 const server = app.listen(port, () => {
-  if (process.env.NODE_ENV === "production") {
-    // tslint:disable-next-line:no-console
-    console.log("Running in production on port " + port);
-  } else {
-    // tslint:disable-next-line:no-console
-    console.log("Running in development mode on port " + port);
-  }
+  console.log("Running in " + process.env.NODE_ENV + " mode on port " + port);
+
 });

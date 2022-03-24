@@ -4,9 +4,24 @@
       <v-container class="py-0 fill-height">
         <v-avatar class="mr-10" color="grey darken-1" size="32"></v-avatar>
 
-        <v-btn v-for="link in links" :key="link" text>
-          {{ link }}
+        <v-btn
+          v-for="(app, i) in apps"
+          :key="i"
+          :to="{ name: app.name }"
+          depressed
+          plain
+          text
+        >
+          {{ app.title }}
         </v-btn>
+        <v-btn
+          v-if="$store.getters.isAuthenticated"
+          @click="logout"
+          depressed
+          plain
+          text
+          >Logout</v-btn
+        >
 
         <v-spacer></v-spacer>
 
@@ -60,13 +75,33 @@
 export default {
   data() {
     return {
-      links: ["Dashboard", "Messages", "Profile", "Updates"],
+      apps: [],
     };
   },
+  watch: {
+    "$store.getters.isAuthenticated": function (newVal) {
+      console.log(
+        "isAuthenticated changed to ",
+        this.$store.getters.isAuthenticated
+      );
+      if (newVal) this.apps = this.$store.getters.getApps;
+      else this.fetchPublicApps();
+    },
+  },
   created() {
-    this.$axios.get("/auth/login").then((response) => {
-      console.log(response.data);
-    });
+    this.fetchPublicApps();
+  },
+  methods: {
+    fetchPublicApps() {
+      this.$axios.get("/public/apps").then((response) => {
+        this.apps = response.data.apps;
+        this.$store.dispatch("setApps", response.data.apps);
+      });
+    },
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.push({ name: "start" });
+    },
   },
 };
 </script>
