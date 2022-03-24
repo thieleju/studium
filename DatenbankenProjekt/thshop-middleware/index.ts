@@ -38,8 +38,7 @@ app.use((err: any, req: any, res: any, next: any) => {
     });
 });
 
-app.get("/", (req, res) => {
-
+app.get("/", (req: any, res: any) => {
   res.status(200).json({
     success: true,
     message: "API Online!",
@@ -49,11 +48,7 @@ app.get("/", (req, res) => {
 
 // import routes
 import authRouter from "./routes/auth";
-import usersRouter from "./routes/users";
-import publicRouter from "./routes/public";
 app.use("/auth", authRouter);
-app.use("/users", usersRouter);
-app.use("/public", publicRouter);
 
 // Create server object
 const server = app.listen(port, () => {
