@@ -80,10 +80,6 @@ export default {
   },
   watch: {
     "$store.getters.isAuthenticated": function (newVal) {
-      console.log(
-        "isAuthenticated changed to ",
-        this.$store.getters.isAuthenticated
-      );
       if (newVal) this.apps = this.$store.getters.getApps;
       else this.fetchPublicApps();
     },
