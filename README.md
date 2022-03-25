@@ -11,5 +11,4 @@ Codesammlung von Projekten in Programmiertechnik, IT-Hardware, Mathe, etc.
 | Programmiertechnik I    | Java                         | Übungsaufgaben zum Modul                              |
 | Programmiertechnik II   | Java                         | Übungsaufgaben zum Modul                              |
 | Theoretische Informatik | Java & Python                | Aufgaben zu Algorithmen                               |
-| DatenbankenProjekt      | Vue, JavaScript & TypeScript | Enthält TH-Shop Vue Frontend und Express.js Middlware |
 | sonstiges               | Java & Python                | Wahlmodul DSP, Github Copilot tests...                |
