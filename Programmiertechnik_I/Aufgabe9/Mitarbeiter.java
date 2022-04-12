@@ -1,4 +1,4 @@
-package Aufgabe9;
+package Programmiertechnik_I.Aufgabe9;
 
 public class Mitarbeiter {
     private String name;

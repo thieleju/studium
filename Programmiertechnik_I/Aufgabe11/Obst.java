@@ -1,5 +1,4 @@
-package Aufgabe11;
-
+package Programmiertechnik_I.Aufgabe11;
 
 public class Obst {
 

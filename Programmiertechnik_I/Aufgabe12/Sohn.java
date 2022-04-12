@@ -1,4 +1,4 @@
-package Aufgabe12;
+package Programmiertechnik_I.Aufgabe12;
 
 public class Sohn extends Vater {
 

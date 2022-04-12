@@ -1,3 +1,5 @@
+package sonstiges.GenericTypesTest;
+
 public class Dog extends Animal {
 
   public Dog(String name, int age) {
