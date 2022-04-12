@@ -10,4 +10,10 @@ public class Reifen {
     this.marke = marke;
   }
 
+  // Copy-Konstruktor
+  public Reifen(Reifen r) {
+    this.typ = r.typ;
+    this.marke = r.marke;
+  }
+
 }

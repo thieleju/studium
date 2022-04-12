@@ -19,6 +19,14 @@ class Drucker {
     this.farbigePatrone = farbigePatrone;
   }
 
+  // Copy-Konstruktor
+  public Drucker(Drucker d) {
+    this.typ = d.getTyp();
+    this.marke = d.getMarke();
+    this.schwarzweissPatrone = new Patrone(d.getSchwarzweissPatrone());
+    this.farbigePatrone = new Patrone(d.getFarbigePatrone());
+  }
+
   public String getTyp() {
     return typ;
   }

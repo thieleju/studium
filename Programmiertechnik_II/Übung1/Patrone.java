@@ -7,6 +7,11 @@ class Patrone {
     this.istSchwarzweiss = istSchwarzweiss;
   }
 
+  // Copy-Konstruktor
+  public Patrone(Patrone p) {
+    this.istSchwarzweiss = p.getIstSchwarzweiss();
+  }
+
   public Boolean getIstSchwarzweiss() {
     return istSchwarzweiss;
   }
