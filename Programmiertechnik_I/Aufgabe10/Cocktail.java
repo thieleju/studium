@@ -1,4 +1,4 @@
-package Aufgabe10;
+package Programmiertechnik_I.Aufgabe10;
 
 public class Cocktail {
 

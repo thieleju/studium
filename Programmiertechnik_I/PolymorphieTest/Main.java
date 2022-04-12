@@ -1,4 +1,4 @@
-package PolymorphieTest;
+package Programmiertechnik_I.PolymorphieTest;
 
 public class Main {
 

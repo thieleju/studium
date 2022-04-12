@@ -1,9 +1,11 @@
+package Programmiertechnik_I;
+
 import java.util.Scanner;
 
-import Aufgabe9.Aufgabe9;
-import Aufgabe10.Aufgabe10;
-import Aufgabe11.Aufgabe11;
-import Aufgabe12.Aufgabe12;
+import Programmiertechnik_I.Aufgabe10.Aufgabe10;
+import Programmiertechnik_I.Aufgabe11.Aufgabe11;
+import Programmiertechnik_I.Aufgabe12.Aufgabe12;
+import Programmiertechnik_I.Aufgabe9.Aufgabe9;
 
 public class Main {
 
