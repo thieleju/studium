@@ -1,3 +1,4 @@
+package sonstiges.GenericTypesTest;
 
 public class Zoo<A1 extends Animal, A2 extends Animal> {
   private A1 animal1;
