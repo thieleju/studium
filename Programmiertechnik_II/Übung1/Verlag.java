@@ -10,7 +10,7 @@ public class Verlag {
 
   // Copy-Konstruktor
   public Verlag(Verlag v) {
-    this.name = v.name;
+    this.name = v.getName();
   }
 
   public String getName() {
