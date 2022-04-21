@@ -5,8 +5,8 @@ public class Main {
   public static void main(String[] args) {
 
     // Aufgabe 1 "TurboLernenFuerPruefungenTestlauf.java"
+    TurboLernenFuerPruefungen tlfp = new TurboLernenFuerPruefungen();
     try {
-      TurboLernenFuerPruefungen tlfp = new TurboLernenFuerPruefungen();
       tlfp.lernen(true);
       tlfp.lernen(false);
 
