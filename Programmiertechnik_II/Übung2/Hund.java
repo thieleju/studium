@@ -5,7 +5,7 @@ public class Hund {
   private String name;
   private int alter;
 
-  public Hund(String name, int alter) {
+  public Hund(String name, int alter) throws InvalidDogAgeException {
     this.name = name;
     setAlter(alter);
   }
