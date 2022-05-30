@@ -55,7 +55,7 @@ select l.name as "lieferant",
 from lieferanten l
   join liefert li on li.lieferant = l.l_id
   join zutaten z on z.z_id = li.zutat
-where z.name like "%rum%"
+where z.name like "%rum%" and z.alkohol > 0
 group by l.name;
 
 -- Welche Zutaten beinhaltet ein Caipirinha?
@@ -69,7 +69,7 @@ group by z.name;
 -- Wie viele Caipirinha-Rezepte gibt es in der Datenbank?
 select count(c.name) as "Caipi Rezepte Anzahl"
 from cocktails c
-where c.name like "%aipirinha%";
+where c.name like "%Caipirinha%";
 
 -- Liste für jeden cocktail die Anzahl der Zutaten, mit denen dieser Cocktail gemixt werden kann
 select c.name as "Cocktail",
