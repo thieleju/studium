@@ -1,0 +1,2 @@
+a sentence with two occurrences of the word the
+this sentence has only one occurrence of the

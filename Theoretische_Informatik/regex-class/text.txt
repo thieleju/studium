@@ -1,0 +1,8 @@
+hello
+woorld
+vivid
+Mississippi
+this is a sentence with this twice
+here is a sentence with two here words
+this is a sentence with no repeats
+this has the the two of the same word in a row
