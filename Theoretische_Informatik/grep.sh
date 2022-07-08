@@ -1,12 +1,8 @@
 #!/bin/bash  
 
 echo "Hello, this is a script using grep!"
-echo "Output:"
 
-f1="regex-class/macbeth-acti.txt"
-f2="regex-class/basic/words.txt"
-f3="regex-class/text.txt"
-f4="regex-class/classes/phonenumbers.txt"
+f1="macbeth-acti.txt"
 
 # Exercise 3
 
