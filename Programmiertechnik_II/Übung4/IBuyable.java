@@ -1,4 +1,3 @@
-package Programmiertechnik_II.Workbook2;
 
 public interface IBuyable {
 

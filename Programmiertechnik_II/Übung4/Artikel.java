@@ -1,4 +1,3 @@
-package Programmiertechnik_II.Workbook2;
 
 public abstract class Artikel implements IBuyable {
 
