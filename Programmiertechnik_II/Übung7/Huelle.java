@@ -1,5 +1,3 @@
-package Programmiertechnik_II.Workbook6;
-
 public class Huelle {
   private String textHuellenKlasse = "Außen hui";
 
