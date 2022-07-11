@@ -1,4 +1,3 @@
-package Programmiertechnik_II.Übung2;
 
 public class PruefungsPanik extends Exception {
 
