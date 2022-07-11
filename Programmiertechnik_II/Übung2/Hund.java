@@ -1,5 +1,3 @@
-package Programmiertechnik_II.Übung2;
-
 public class Hund {
 
   private String name;
