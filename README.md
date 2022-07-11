@@ -10,6 +10,6 @@ Codesammlung von Projekten in Programmiertechnik, IT-Hardware, Mathe, etc.
 | Mathe I                 | Python        | Skripte für mathematische Algorithmen  |
 | Programmiertechnik I    | Java          | Übungsaufgaben zum Modul               |
 | Programmiertechnik II   | Java          | Übungsaufgaben zum Modul               |
-| Theoretische Informatik | Bash          | Aufgaben zu regular expressions        |
+| Theoretische Informatik | Shell         | Aufgaben zu regular expressions        |
 | sonstiges               | Java & Python | Wahlmodul DSP, Github Copilot tests... |
 
