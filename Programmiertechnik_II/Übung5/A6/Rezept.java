@@ -1,4 +1,4 @@
-package Programmiertechnik_II.Workbook3.A6;
+package A6;
 
 public class Rezept implements Comparable<Rezept> {
 

@@ -1,5 +1,3 @@
-package Programmiertechnik_II.Workbook4;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
