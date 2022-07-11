@@ -1,4 +1,4 @@
-package Programmiertechnik_II.Workbook3.A8;
+package A8;
 
 public class KuchenThermoMix extends Backvorlage {
 

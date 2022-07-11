@@ -1,6 +1,4 @@
-package Programmiertechnik_II.Workbook3.A5;
-
-import Programmiertechnik_II.Workbook3.A5.IBuyable.Lieferstatus;
+package A5;
 
 public abstract class Artikel implements IBuyable {
 
