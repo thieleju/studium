@@ -1,4 +1,3 @@
-package Programmiertechnik_II.Workbook1.I6;
 
 public class Kunde implements Cloneable {
 
@@ -36,6 +35,7 @@ public class Kunde implements Cloneable {
     Kunde k = null;
     try {
       k = (Kunde) super.clone();
+      k.setKonto(k.getKonto().clone());
     } catch (CloneNotSupportedException e) {
       e.printStackTrace();
     }
