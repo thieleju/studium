@@ -1,4 +1,4 @@
-package Programmiertechnik_II.Workbook3.A8;
+package A8;
 
 public abstract class Backvorlage {
 
@@ -8,13 +8,13 @@ public abstract class Backvorlage {
     backen();
   }
 
-  public void zutatenBereitstellen() {
+  public final void zutatenBereitstellen() {
     System.out.println("Stellen Sie die Zutaten bereit.");
   }
 
   abstract void vermengen();
 
-  public void backen() {
+  public final void backen() {
     System.out.println("Geben Sie den Kuchen in den Backofen.");
   }
 

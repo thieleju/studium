@@ -1,11 +1,9 @@
-package Programmiertechnik_II.Workbook3;
-
 import java.util.Arrays;
 
-import Programmiertechnik_II.Workbook3.A1.*;
-import Programmiertechnik_II.Workbook3.A5.*;
-import Programmiertechnik_II.Workbook3.A6.*;
-import Programmiertechnik_II.Workbook3.A8.*;
+import A1.*;
+import A5.*;
+import A6.*;
+import A8.*;
 
 public class Main {
 
@@ -16,7 +14,7 @@ public class Main {
 
     // Konkrete Klasse | Abstrakte Klasse | Finale Klasse | Schnittstelle
     // -----------------------------------
-    // Konkrete Methode | ja nein ja nein
+    // Konkrete Methode | ja ja ja nein
     // Abstrakte Methode | nein ja nein ja
     // Statische Methode | ja ja ja ja
     // Default Methode | nein nein nein ja

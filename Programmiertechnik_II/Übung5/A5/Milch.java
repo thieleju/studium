@@ -1,4 +1,4 @@
-package Programmiertechnik_II.Workbook3.A5;
+package A5;
 
 public class Milch extends Artikel {
 
