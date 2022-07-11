@@ -1,5 +1,3 @@
-package Programmiertechnik_II.Workbook6;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
@@ -121,4 +119,3 @@ public class Login implements KeyListener {
     public void keyReleased(KeyEvent e) {
     }
 }
-
