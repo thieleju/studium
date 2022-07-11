@@ -1,7 +1,3 @@
-package Programmiertechnik_II.Workbook1;
-
-import Programmiertechnik_II.Workbook1.A1.*;
-import Programmiertechnik_II.Workbook1.I6.*;
 
 public class Main {
 
@@ -30,12 +26,11 @@ public class Main {
     Konto konto = new Konto(1234);
 
     Kunde k1 = new Kunde("Kunde 1", konto);
-    System.out.println(k1.toString());
+    System.out.println(k1);
     Kunde k2 = k1;
-    System.out.println(k2.toString());
-    Kunde k3 = (Kunde) k1.clone();
-    System.out.println(k3.toString());
-
+    System.out.println(k2);
+    Kunde k3 = k1.clone();
+    System.out.println(k3);
   }
 
 }
