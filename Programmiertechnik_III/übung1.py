@@ -1,48 +1,108 @@
 from dataclasses import dataclass
 
+# Exercise Algorithmenentwurf - Knapsack
+
+
 @dataclass
 class Product:
-    o: int
+    '''Product dataclass'''
+    name: str
     weight: float
     value: float
+    multiplier: float = 1
+
+    def ratio(self) -> float:
+        # round to 2 decimal places
+        return round(self.value / self.weight, 2)
+
+    def toString(self) -> str:
+        rel_weight = round(self.weight * self.multiplier, 2)
+        rel_value = round(self.value * self.multiplier, 2)
+        return f'{self.name}({self.multiplier}x, {self.weight} kg, {self.value} €, {self.ratio()} €/kg)\t=> rel_weight: {rel_weight} kg, rel_value: {rel_value} €'
+
+
+@dataclass
+class Bag:
+    '''Bag dataclass'''
+    name: str
+    capacity: float
+    products: list[Product]
+
+    def total_weight(self) -> float:
+        return round(sum([(p.weight * p.multiplier) for p in self.products]), 2)
+
+    def total_value(self) -> float:
+        return round(sum([(p.value * p.multiplier) for p in self.products]), 2)
+
+    def print(self):
+        print(f"Bag: {self.name}")
+        print(f"- Total weight: {self.total_weight()} kg / {self.capacity} kg")
+        print(f"- Total value: {self.total_value()} €")
+        print("- Products:")
+        for p in self.products:
+            print(f"  - {p.toString()}")
+
 
 # generate products
-products = [Product(1, 12.34, 123.99),
-            Product(2, 23.45, 600.54),
-            Product(3, 12.78, 90.67),
-            Product(4, 9.34, 34.32)]
+products = [Product("O1", 12.34, 123.99),
+            Product("O2", 23.45, 600.54),
+            Product("O3", 12.78, 90.67),
+            Product("O4", 9.34, 34.32)]
 
-capacity = 41
 
-def packBag1(capacity):
-    global products
-    bag = []
-    while capacity > 0:
-        # find product with highest value/weight ratio
-        bestProduct = None
-        bestRatio = 0
-        for product in products:
-            ratio = product.value / product.weight
-            if ratio > bestRatio:
-                bestProduct = product
-                bestRatio = ratio
+def get_bag_1(products, capacity):
+    '''Exercise 1 - Greedy algorithm'''
+    bag = Bag("Fractal Bag", capacity, [])
+    temp_products = products.copy()
 
-        if(bestProduct == None):
+    # add products to bag until capacity is reached
+    while bag.total_weight() < bag.capacity:
+        # get product with highest value/weight ratio
+        product = max(temp_products, key=lambda x: x.ratio())
+        # check if capacity would be reached
+        if bag.total_weight() + product.weight >= bag.capacity:
+            # add last product with adjusted multiplier
+            product.multiplier = round(
+                (bag.capacity - bag.total_weight()) / product.weight, 4)
+            bag.products.append(product)
             break
-
-        # add product to bag if it fits
-        if bestProduct.weight <= capacity:
-            bag.append(bestProduct)
-            capacity -= bestProduct.weight
-
+        # add product to bag
+        bag.products.append(product)
         # remove product from list
-        products.remove(bestProduct)
+        temp_products.remove(product)
+
     return bag
-    
+
+
+def get_bag_2(products, capacity):
+    '''Exercise 2 - Greedy algorithm'''
+    bag = Bag("Discrete Bag", capacity, [])
+    temp_products = products.copy()
+
+    # add products to bag until capacity is reached
+    while bag.total_weight() < bag.capacity:
+        # get product with highest value/weight ratio
+        product = max(temp_products, key=lambda x: x.ratio())
+        # check if capacity would be reached
+        if bag.total_weight() + product.weight >= bag.capacity:
+            break
+        # add product to bag
+        bag.products.append(product)
+        # remove product from list
+        temp_products.remove(product)
+
+    return bag
+
+
 if __name__ == "__main__":
-    bag1 = packBag1(capacity)
-    print("Bag contains:")
-    for product in bag1:
-        print(product)
-    print("Value: "+str(sum([product.value for product in bag1])))
-    print("Weight: "+str(sum([product.weight for product in bag1])))
+    # List all products
+    print("List of all products:")
+    for p in products:
+        print(f"- {p.toString()}")
+
+    # Exercise 1
+    get_bag_1(products, capacity=41).print()
+    # Exercise 2
+    get_bag_2(products, capacity=41).print()
+    # Exercise 3
+    # TODO Exercise 2 = Exercise 3?
