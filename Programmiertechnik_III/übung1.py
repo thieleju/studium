@@ -46,8 +46,8 @@ class Bag:
             print(f"  - {p.toString(extended=True)}")
 
 
-# default bag capacity
-capacity_default = 41
+# default bag capacity in kg
+capacity_default = 50
 # generate products
 products = [Product("O1", 12.34, 123.99),
             Product("O2", 23.45, 600.54),
@@ -62,6 +62,9 @@ def get_bag_1(products, capacity=capacity_default):
 
     # add products to bag until capacity is reached
     while bag.total_weight() < bag.capacity:
+        # exit if no products are left
+        if len(temp_products) == 0:
+            break
         # get product with highest value/weight ratio
         product = max(temp_products, key=lambda x: x.ratio())
         # check if capacity would be reached
@@ -86,6 +89,9 @@ def get_bag_2(products, capacity=capacity_default):
 
     # add products to bag until capacity is reached
     while bag.total_weight() < bag.capacity:
+        # exit if no products are left
+        if len(temp_products) == 0:
+            break
         # get product with highest value/weight ratio
         product = max(temp_products, key=lambda x: x.ratio())
         # check if capacity would be reached
