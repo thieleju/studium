@@ -15,10 +15,13 @@ class Product:
         # round to 2 decimal places
         return round(self.value / self.weight, 2)
 
-    def toString(self) -> str:
-        rel_weight = round(self.weight * self.multiplier, 2)
-        rel_value = round(self.value * self.multiplier, 2)
-        return f'{self.name}({self.multiplier}x, {self.weight} kg, {self.value} €, {self.ratio()} €/kg)\t=> rel_weight: {rel_weight} kg, rel_value: {rel_value} €'
+    def toString(self, extended=False) -> str:
+        output = f"{self.name}({self.multiplier}x, {self.weight} kg, {self.value} €, {self.ratio()} €/kg)"
+        if extended == True:
+            rel_weight = round(self.weight * self.multiplier, 2)
+            rel_value = round(self.value * self.multiplier, 2)
+            output += f"\t=> rel_weight: {rel_weight} kg, rel_value: {rel_value} €"
+        return output
 
 
 @dataclass
@@ -40,9 +43,11 @@ class Bag:
         print(f"- Total value: {self.total_value()} €")
         print("- Products:")
         for p in self.products:
-            print(f"  - {p.toString()}")
+            print(f"  - {p.toString(extended=True)}")
 
 
+# default bag capacity
+capacity_default = 41
 # generate products
 products = [Product("O1", 12.34, 123.99),
             Product("O2", 23.45, 600.54),
@@ -50,8 +55,8 @@ products = [Product("O1", 12.34, 123.99),
             Product("O4", 9.34, 34.32)]
 
 
-def get_bag_1(products, capacity):
-    '''Exercise 1 - Greedy algorithm'''
+def get_bag_1(products, capacity=capacity_default):
+    '''Exercise 1'''
     bag = Bag("Fractal Bag", capacity, [])
     temp_products = products.copy()
 
@@ -74,8 +79,8 @@ def get_bag_1(products, capacity):
     return bag
 
 
-def get_bag_2(products, capacity):
-    '''Exercise 2 - Greedy algorithm'''
+def get_bag_2(products, capacity=capacity_default):
+    '''Exercise 2'''
     bag = Bag("Discrete Bag", capacity, [])
     temp_products = products.copy()
 
@@ -101,8 +106,8 @@ if __name__ == "__main__":
         print(f"- {p.toString()}")
 
     # Exercise 1
-    get_bag_1(products, capacity=41).print()
+    get_bag_1(products).print()
     # Exercise 2
-    get_bag_2(products, capacity=41).print()
+    get_bag_2(products).print()
     # Exercise 3
     # TODO Exercise 2 = Exercise 3?
