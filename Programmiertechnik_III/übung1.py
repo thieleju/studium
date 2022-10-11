@@ -47,7 +47,7 @@ class Bag:
 
 
 # default bag capacity in kg
-capacity_default = 50
+capacity_default = 41
 # generate products
 products = [Product("O1", 12.34, 123.99),
             Product("O2", 23.45, 600.54),
