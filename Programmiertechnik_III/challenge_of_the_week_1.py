@@ -3,15 +3,17 @@
 import numpy as np
 
 input = np.array([15, 17, 18, 15, 14, 14, 15, 20, 18, 19])
-# input = np.random.randint(10, 28, 20) # array of 20 random temperatures from 10 to 28 degrees
+
+# array of 20 random temperatures from 10 to 28 degrees
+# input = np.random.randint(10, 28, 20)
 
 
 # iterate over all temperatures after the current one
 # if the next temperature is higher than the current one,
 # add 1 to the counter
-def howManyDaysUntilWarmer(current_temp, input):
+def getDaysUntilWarmer(i, input):
     counter = 0
-    while current_temp >= input[i + counter]:
+    while input[i] >= input[i + counter]:
         # if the next day to check is outside the array,
         # break the loop and add 0 to the output
         if (counter + i >= len(input) - 1):
@@ -28,9 +30,9 @@ if __name__ == "__main__":
     output = np.array([])
 
     # iterate over all temperatures to find the next warmer day
-    for i, temp in enumerate(input):
+    for i in range(len(input)):
         # add the number of days to the output array
-        output = np.append(output, howManyDaysUntilWarmer(temp, input))
+        output = np.append(output, getDaysUntilWarmer(i, input))
 
     # print the output array in a nice format
     for i, temp in enumerate(input):
