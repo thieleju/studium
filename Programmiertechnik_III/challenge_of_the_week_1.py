@@ -11,8 +11,7 @@ input = np.array([15, 17, 18, 15, 14, 14, 15, 20, 18, 19])
 def getDaysUntilWarmer(i, input):
     '''
     Iterate over all temperatures after the current one.
-    If the next temperature is higher than the current one,
-    add 1 to the counter
+    If the next temperature is higher than the current one, add 1 to the counter.
     @param i: current index
     @param input: input array containing temperatures
     @returns Amount of days until the next warmer day
