@@ -1,0 +1,8 @@
+"name","height","mass","sex","eye_color","homeworld","jedi"
+"Luke Skywalker",172,77,"male","blue","Tatooine", True
+"R2-D2",96,32,"none","red","Naboo", False
+"Darth Vader",202,136,"male","yellow","Tatooine", True
+"Leia Organa",150,49,"female","brown","Alderaan", True
+"Chewbacca",228,112,"male","blue","Kashyyyk", False
+"Yoda",66,17,"male","brown",NA, True
+"Boba Fett",183,78.2,"male","brown","Kamino", False
