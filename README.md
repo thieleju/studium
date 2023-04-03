@@ -14,6 +14,7 @@ Codesammlung von Projekten für den Studiengang Software Design
 | Programmiertechnik I            | Java           | Übungsaufgaben zum Modul               |
 | Programmiertechnik II           | Java           | Übungsaufgaben zum Modul               |
 | Programmiertechnik III          | Python/Jupyter | Übungsaufgaben zum Modul               |
+| Programmierung mit Python       | Python/Jupyter | Übungsaufgaben zum Wahlpflichtfach     |
 | Theoretische Informatik         | Shell          | Aufgaben zu regular expressions        |
 | sonstiges                       | Java & Python  | Wahlmodul DSP, Github Copilot tests... |
 
