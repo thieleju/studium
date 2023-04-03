@@ -1,6 +1,6 @@
 # Studium Repository
 
-Codesammlung von Projekten in Programmiertechnik, IT-Hardware, Mathe, etc.
+Codesammlung von Projekten für den Studiengang Software Design
 
 <br>
 
