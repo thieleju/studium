@@ -1,6 +1,7 @@
 # Aufgabe 1
 
 Lesen Sie das folgende Programm und versuchen Sie, die folgenden Fragen zu beantworten ohne das Programm auszuführen. Malen Sie sich eine Speicherskizze auf, um die Fragen zu beantworten.
+
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,42 +15,52 @@ int main() {
 ```
 
 Was bewirkt die Ausgabe printf("%d.\n", x);?
+
 - Gibt den Wert von x aus
 - Ausgabe: 5
 
 Was bewirkt die Ausgabe printf("%d.\n", myPointer);?
-- Gibt die Adresse von x aus (aber in dezimaler Form, da %d anstatt %p) 
+
+- Gibt die Adresse von x aus (aber in dezimaler Form, da %d anstatt %p)
 - Ausgabe: 27260604 (in hex: 19FF6BC)
 
 Was bewirkt die Ausgabe printf("%p.\n", &x);?
+
 - Gibt die Adresse von x aus
-- Ausgabe: 000000bd019ff6bc 
+- Ausgabe: 000000bd019ff6bc
 
 Was bewirkt die Ausgabe printf("%p.\n", &myPointer);?
+
 - Gibt die Adresse von myPointer aus
 - Ausgabe: 000000bd019ff6b0
 
-Was bewirkt die Ausgabe printf("%d.\n", *myPointer);?
+Was bewirkt die Ausgabe printf("%d.\n", \*myPointer);?
+
 - Gibt den Wert von x aus
 - Ausgabe: 5
 
-Was passiert beim Versuch, folgendes auszugeben: printf("%d.\n", *x);?
-- Fehler, da x kein Pointer ist 
-- "operand of '*' must be a pointer but has type 'int'"
+Was passiert beim Versuch, folgendes auszugeben: printf("%d.\n", \*x);?
+
+- Fehler, da x kein Pointer ist
+- "operand of '\*' must be a pointer but has type 'int'"
 
 # Aufgabe 2
 
 Sie fügen in dem Programm aus Aufgabe 1 vor dem Printf-Befehl folgende Zeile hinzu:
+
 ```c
 *myPointer = 10;
 ```
+
 Beantworten Sie folgende Fragen ohne das Programm auszuführen:
 
 Was bewirkt die Ausgabe printf("%d.\n", x);?
+
 - Gibt den Wert von x aus
 - Ausgabe: 10
 
-Was bewirkt die Ausgabe printf("%d.\n", *myPointer);?
+Was bewirkt die Ausgabe printf("%d.\n", \*myPointer);?
+
 - Gibt den Wert von x aus
 - Ausgabe: 10
 
@@ -59,11 +70,31 @@ Sie können auch Pointer als Parameter für Funktionen deklarieren. Erinnern Sie
 
 # Aufgabe 4
 
-Wenn Sie Aufgabe 3 richtig bearbeitet haben, werden die Variablen x und y aus main() in der Funktion vertauscheMitPointern() tatsächlich manipuliert. Das ändert nichts an der Tatsache, dass es sich noch immer um einen Call-by-Value handelt. 
+Wenn Sie Aufgabe 3 richtig bearbeitet haben, werden die Variablen x und y aus main() in der Funktion vertauscheMitPointern() tatsächlich manipuliert. Das ändert nichts an der Tatsache, dass es sich noch immer um einen Call-by-Value handelt.
 
-Von welchen Variablen werden für die Funktion vertauscheMitPointern() lokale Kopien erzeugt? 
+Von welchen Variablen werden für die Funktion vertauscheMitPointern() lokale Kopien erzeugt?
 
-Weshalb stellt das kein Problem dar? 
+- Die Funktion bekommt die Adressen an Pointer übergeben. Diese Pointer tauschen danach die Werte.
+- Es werden keine Kopien von lokalen Variablen erzeugt?
+
+Weshalb stellt das kein Problem dar?
+
+-
 
 Verdeutlichen Sie Ihre Lösung mit einer Speicherskizze.
 
+heap: dynamischer Speicherplatz zur Datenablage
+stack: loakle Variablen und Funktionsaufrufe
+static: statische/globale Variablen
+
+| Typ   | Variable | Adresse | Wert  |
+| ----- | -------- | ------- | ----- |
+| stack | y        | 0xffe   | 5     |
+| stack | x        | 0xfff   | 10    |
+| stack | py       | 0xffc   | 0xfff |
+| stack | px       | 0xffd   | 0xffe |
+| stack | temp     | 0xffb   | 0xfff |
+| stack | py       | 0xffc   | 0xffe |
+| stack | px       | 0xffd   | 0xfff |
+| stack | y        | 0xffe   | 10    |
+| stack | x        | 0xfff   | 5     |

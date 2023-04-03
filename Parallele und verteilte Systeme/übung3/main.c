@@ -3,11 +3,11 @@
 
 // build command: gcc -o programm main.c
 
-void vertauscheMitPointern(int *a, int *b)
+void vertauscheMitPointern(int *px, int *py)
 {
-  int temp = *a;
-  *a = *b;
-  *b = temp;
+  int temp = *px;
+  *px = *py;
+  *py = temp;
 }
 
 int main()
@@ -24,11 +24,11 @@ int main()
   printf("%p.\n", &myPointer);
   printf("%d.\n", *myPointer);
   // printf("%d.\n", *x); operand of '*' must be a pointer but has type 'int'
-  
+
   printf("\nAufgabe 3:\n");
 
-  int a = 5;
-  int b = 10;
+  int a = 5;  // eigentlich x
+  int b = 10; // eigentlich y
   printf("Normal: \ta = %d, b = %d\n", a, b);
   vertauscheMitPointern(&a, &b);
   printf("Vertauscht: \ta = %d, b = %d\n", a, b);
