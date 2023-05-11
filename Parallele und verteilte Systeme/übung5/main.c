@@ -1,29 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <Windows.h>
-#include <lmcons.h>
+#include <unistd.h>
+#include <sys/resource.h>
 
 int main()
 {
-  TCHAR username[UNLEN + 1];
-  DWORD username_len = UNLEN + 1;
-  GetUserName(username, &username_len);
-  printf("Hello user %s\n", username);
+  printf("Hello user %s\n", getlogin());
+  printf("You are executing this in directory %s\n", getcwd(NULL, 0));
 
-  TCHAR current_dir[MAX_PATH];
-  GetCurrentDirectory(MAX_PATH, current_dir);
-  printf("You are executing this in directory %s\n", current_dir);
+  struct rusage myProgramStats;
 
-  LARGE_INTEGER frequency, start_time, end_time;
-  QueryPerformanceFrequency(&frequency);
-  QueryPerformanceCounter(&start_time);
-
-  for (unsigned long i = 0; i < 10000; i++)
+  for (unsigned long i = 0; i < 1000000; i++)
   {
     printf("I'm just here to consume some time ... i is currently %lu\n", i);
   }
 
-  QueryPerformanceCounter(&end_time);
-  double elapsed_seconds = (double)(end_time.QuadPart - start_time.QuadPart) / frequency.QuadPart;
-  printf("CPU time spent: %lf\n", elapsed_seconds);
+  getrusage(RUSAGE_SELF, &myProgramStats);
+  printf("CPU time spent: %ld.%06ld\n", myProgramStats.ru_utime.tv_sec, myProgramStats.ru_utime.tv_usec);
 }
