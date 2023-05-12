@@ -38,13 +38,11 @@ Was ist POSIX und wofür wird es eingesetzt?
 - POSIX soll Interoperabilität und Portabilität zwischen verschiedenen Unix-artigen Betriebssystemen ermöglichen
 - POSIX-Compliance ist wichtig für die Kompatibilität von Anwendungen und Betriebssystemen, insbesondere in Umgebungen, in denen unterschiedliche Systeme miteinander interagieren müssen.
 
-
-# Aufgabe 5
-
-# Aufgabe 6
-
-# Aufgabe 7
-
 # Aufgabe 8
 
+Da der Code in der main() Funktion definiert ist, können alle drei Instanzen auf die Funktionen zugreifen.
 
+# Aufagbe 9 
+
+Die Zahlen werden zu groß, weswegen ein Overflow auftritt und die Zahlen negativ werden.
+Man könnte überprüfen, ob die Zahlen negativ sind und so sicherstellen, dass der Overflow nicht auftritt.
