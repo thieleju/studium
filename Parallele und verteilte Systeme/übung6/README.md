@@ -60,6 +60,7 @@ printf(…) leeren.
 # Aufgabe 5
 Versuchen Sie einmal, in einem Kindprozess ein zweites Mal mittels read(…) zu lesen. Woran können
 Sie erkennen, dass Sie beim zweiten Mal nicht erfolgreich gelesen haben?
+- Die read() Funktion blockiert und wartet auf neue Daten, die in die Pipe geschrieben werden.
 
 # Aufgabe 6
 Fügen Sie nun Code hinzu, der in jedem der Kindprozesse die Laufzeit misst. Senden Sie dann diese

@@ -1,144 +1,197 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <stdbool.h>
-#include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/resource.h>
 #include <math.h>
 
 #define READ 0
 #define WRITE 1
 
-void generatePrime(int n, int *primes)
+void generate_primes_fast(int n)
 {
-    int X = 0, i = 2;
-    bool flag;
-    while(X < n){
-        flag = true;
-        for(int j = 2; j <= i/2; j++){
-            if (i%j == 0){
-                flag = false;
-                break;
-            }
-        }
-        if(flag){
-            primes[X] = i;
-            X++;
-        }
-        i++;
+  int *primes;
+  primes = (int *)malloc(n * sizeof(int));
+
+  if (primes == NULL)
+  {
+    printf("Error: malloc() failed\n");
+    exit(EXIT_FAILURE);
+  }
+
+  primes[0] = 2;
+
+  int found_primes = 1;
+  int current = 3;
+  int is_prime;
+
+  while (found_primes != n)
+  {
+    is_prime = 1;
+    for (int i = 0; i < sqrt(found_primes); i++)
+    {
+      if (current % primes[i] == 0)
+      {
+        is_prime = 0;
+        break;
+      }
     }
-    // print biggest prime
-    printf("Largest prime generated: %d\n", primes[n-1]);
+    if (is_prime)
+    {
+      primes[found_primes++] = current;
+    }
+    current += 2;
+  }
+  printf("-> Largest prime: %i (fast)\n", primes[n - 1]);
+  free(primes);
+  primes = NULL;
+}
+
+void generate_primes_slow(int n)
+{
+  int *primes;
+  primes = (int *)malloc(n * sizeof(int));
+  if (primes == NULL)
+  {
+    printf("Error: malloc() failed\n");
+    exit(EXIT_FAILURE);
+  }
+
+  primes[0] = 2;
+
+  int found_primes = 1;
+  int current = 3;
+  int is_prime;
+
+  while (found_primes != n)
+  {
+    is_prime = 1;
+    for (int i = 0; i < found_primes / 2; i++)
+    {
+      if (current % primes[i] == 0)
+      {
+        is_prime = 0;
+        break;
+      }
+    }
+    if (is_prime)
+    {
+      primes[found_primes++] = current;
+    }
+    current += 2;
+  }
+  printf("-> Largest prime: %i (slow)\n", primes[n - 1]);
+  free(primes);
+  primes = NULL;
+}
+
+double get_time()
+{
+  struct rusage usage;
+  getrusage(RUSAGE_SELF, &usage);
+  return usage.ru_utime.tv_sec + (usage.ru_utime.tv_usec / 1000000.0);
 }
 
 int main()
 {
-    int primNum, i;
-    int pipeP1[2], pipeP2[2];
-    pid_t pid1, pid2;
+  pid_t pid1, pid2;
+  int status;
 
-    if (pipe(pipeP1) == -1 || pipe(pipeP2) == -1)
+  int primNum = 10000;
+  int pipeP1[2], pipeP2[2], pipeP3[2], pipeP4[2];
+
+  pipe(pipeP1);
+  pipe(pipeP2);
+  pipe(pipeP3);
+  pipe(pipeP4);
+
+  pid1 = fork();
+
+  if (pid1 == -1)
+  {
+    exit(EXIT_FAILURE);
+  }
+  else if (pid1 == 0)
+  { // child process 1
+    int x;
+
+    close(pipeP1[WRITE]);
+    read(pipeP1[READ], &x, sizeof(int));
+    close(pipeP1[READ]);
+
+    printf("Read from pipe P1: %i\n", x);
+
+    double start_time = get_time();
+    generate_primes_fast(x);
+    double diff = get_time() - start_time;
+
+    close(pipeP3[READ]);
+    write(pipeP3[WRITE], &diff, sizeof(double));
+    close(pipeP3[WRITE]);
+
+    exit(EXIT_SUCCESS);
+  }
+  else
+  {
+    // parent process
+    pid2 = fork();
+    if (pid2 == -1)
     {
-        perror("Error creating pipes");
-        exit(EXIT_FAILURE);
+      exit(EXIT_FAILURE);
     }
+    else if (pid2 == 0)
+    { // child process 2
+      int x;
 
-    pid1 = fork();
-    if (pid1 == -1)
-    {
-        perror("Error creating first child process");
-        exit(EXIT_FAILURE);
-    }
-    else if (pid1 == 0)
-    {
-        // First child process
-        close(pipeP1[WRITE]);
+      close(pipeP2[WRITE]);
+      read(pipeP2[READ], &x, sizeof(int));
+      close(pipeP2[READ]);
 
-        int x;
-        if (read(pipeP1[READ], &x, sizeof(x)) == -1)
-        {
-            perror("Error reading from pipeP1");
-            exit(EXIT_FAILURE);
-        }
-        printf("First child read pipe1: %d\n", x);
+      printf("Read from pipe P2: %i\n", x);
 
-        int *primes = malloc(sizeof(int) * x);
-        generatePrime(x, primes);
+      double start_time = get_time();
+      generate_primes_slow(x);
+      double diff = get_time() - start_time;
 
-        if (write(pipeP2[WRITE], primes, sizeof(int) * x) == -1)
-        {
-            perror("Error writing to pipeP2");
-            exit(EXIT_FAILURE);
-        }
+      close(pipeP4[READ]);
+      write(pipeP4[WRITE], &diff, sizeof(double));
+      close(pipeP4[WRITE]);
 
-        close(pipeP1[READ]);
-        close(pipeP2[WRITE]);
-        free(primes);
-        exit(EXIT_SUCCESS);
+      exit(EXIT_SUCCESS);
     }
     else
-    {
-        // Parent process
-        pid2 = fork();
-        if (pid2 == -1)
-        {
-            perror("Error creating second child process");
-            exit(EXIT_FAILURE);
-        }
-        else if (pid2 == 0)
-        {
-            // Second child process
-            close(pipeP1[WRITE]);
+    { // parent process
+      close(pipeP1[READ]);
+      write(pipeP1[WRITE], &primNum, sizeof(int));
+      close(pipeP1[WRITE]);
 
-            int x;
-            if (read(pipeP1[READ], &x, sizeof(x)) == -1)
-            {
-                perror("Error reading from pipeP1");
-                exit(EXIT_FAILURE);
-            }
+      printf("Wrote to pipe P1: %i\n", primNum);
 
-            printf("Second child read pipe1: %d\n", x);
+      close(pipeP2[READ]);
+      write(pipeP2[WRITE], &primNum, sizeof(int));
+      close(pipeP2[WRITE]);
 
-            int *primes = malloc(sizeof(int) * x);
-            generatePrime(x, primes);
+      printf("Wrote to pipe P2: %i\n", primNum);
 
-            if (write(pipeP2[WRITE], primes, sizeof(int) * x) == -1)
-            {
-                perror("Error writing to pipeP2");
-                exit(EXIT_FAILURE);
-            }
+      double diff1, diff2;
 
-            close(pipeP1[READ]);
-            close(pipeP2[WRITE]);
-            free(primes);
-            exit(EXIT_SUCCESS);
-        }
-        else
-        {
-            // Parent process
-            close(pipeP1[READ]);
-            close(pipeP2[WRITE]);
+      close(pipeP3[WRITE]);
+      read(pipeP3[READ], &diff1, sizeof(double));
+      close(pipeP3[READ]);
 
-            printf("Enter the number of prime numbers to generate: ");
-            scanf("%d", &primNum);
+      close(pipeP4[WRITE]);
+      read(pipeP4[READ], &diff2, sizeof(double));
+      close(pipeP4[READ]);
 
-            if (write(pipeP1[WRITE], &primNum, sizeof(primNum)) == -1)
-            {
-                perror("Error writing to pipeP1");
-                exit(EXIT_FAILURE);
-            }
+      printf("-> Fast: %f\n", diff1);
+      printf("-> Slow: %f\n", diff2);
 
-            int *primes1 = malloc(sizeof(int) * primNum);
-            if (read(pipeP2[READ], primes1, sizeof(int) * primNum) == -1)
-            {
-                perror("Error reading from pipeP2");
-                exit(EXIT_FAILURE);
-            }
+      waitpid(pid1, &status, 0);
+      waitpid(pid2, &status, 0);
 
-            printf("First child process (pid=%d) terminated\n", pid1);
-            printf("Second child process (pid=%d) terminated\n", pid2);
-            // print largest prime
-            printf("Largest prime generated: %d\n", primes1[primNum-1]);
-        }
+      printf("\nBoth processes finished.\n\n");
     }
+  }
+
+  return 0;
 }
