@@ -17,29 +17,33 @@
 #define port 8080
 #define bufferSize 128
 
+// Command to compile: gcc -o client client.c
+
 void exchangeSomeData(int connectionfd)
 {
 	char readBuffer[bufferSize];
 	while (1)
 	{
-		// Eingabe der Primzahlposition
-		printf("Geben Sie die Position der Primzahl ein (exit zum Beenden): ");
+		printf("System: Enter N of the Nth prime you want (type exit to close): ");
 		fgets(readBuffer, sizeof(readBuffer), stdin);
+		printf("You: %s", readBuffer);
 
-		// Übertragung beenden, wenn "exit" eingegeben wird
-		readBuffer[strcspn(readBuffer, "\n")] = '\0'; // Newline-Zeichen entfernen
-		if (strcmp(readBuffer, "exit") == 0)
-			break;
+		// Remove trailing newline
+		readBuffer[strcspn(readBuffer, "\n")] = '\0';
 
-		// Primzahlposition an den Server senden
+		// Send N to server
 		send(connectionfd, readBuffer, sizeof(readBuffer), 0);
 
-		// Primzahl vom Server empfangen
+		// Receive prime number from server
 		memset(readBuffer, 0, sizeof(readBuffer));
 		recv(connectionfd, readBuffer, sizeof(readBuffer), 0);
 
-		// Ausgabe der empfangenen Primzahl
-		printf("Empfangene Primzahl: %s\n", readBuffer);
+		printf("Server: %s\n", readBuffer);
+
+		if (strcmp(readBuffer, "bye") == 0)
+		{
+			break;
+		}
 	}
 }
 
@@ -49,10 +53,10 @@ int main()
 	int connectionfd = socket(AF_INET, SOCK_STREAM, 0);
 	if (connectionfd == -1)
 	{
-		printf("Fehler beim Erzeugen des Sockets.\n");
+		printf("Failed to create socket\n");
 		exit(EXIT_FAILURE);
 	}
-	printf("Socket erstellt.\n");
+	printf("System: Socket created.\n");
 
 	// set server IP and port
 	struct sockaddr_in serverSockAddr;
@@ -63,16 +67,17 @@ int main()
 	// Connect client and server sockets
 	if (connect(connectionfd, (struct sockaddr *)&serverSockAddr, sizeof(serverSockAddr)) != 0)
 	{
-		printf("Verbindung zum Server fehlgeschlagen.\n");
+		printf("Failed to connect to server.\n");
 		exit(EXIT_FAILURE);
 	}
-	printf("Verbindung zum Server hergestellt.\n");
+	printf("System: Connected to server.\n");
 
 	// function for chat
 	exchangeSomeData(connectionfd);
 
 	// close the socket
 	close(connectionfd);
+	printf("System: Socket closed.\n");
 
 	exit(EXIT_SUCCESS);
 }
