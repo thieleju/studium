@@ -1,9 +1,13 @@
+#include <stdio.h>
+
 #ifndef PRIMEARRAY_H_
 #define PRIMEARRAY_H_
 
-static unsigned long long primeArray[128][3];
+#define SIZE 128
 
-void setpArray()
+static unsigned long long primeArray[SIZE][3];
+
+void setupArray()
 {
 	primeArray[0][0] = 999999106000090909;
 	primeArray[1][0] = 999998948000196587;
@@ -134,18 +138,30 @@ void setpArray()
 	primeArray[126][0] = 999983362069088797;
 	primeArray[127][0] = 999983220070296619;
 
-	for (unsigned int i = 0; i < 128; i++)
+	for (unsigned int i = 0; i < SIZE; i++)
 	{
 		primeArray[i][1] = 0;
 		primeArray[i][2] = 0;
 	}
+
+	printf("Prime Array initialized\n");
 }
 
 void printFactorlist()
 {
-	for (unsigned int i = 0; i < 128; i++)
+	for (unsigned int i = 0; i < SIZE; i++)
 	{
-		printf("%llu \t is %llu \t * %llu\n", primeArray[i][0], primeArray[i][1], primeArray[i][2]);
+		// check if the factorization is correct
+		unsigned long long product = primeArray[i][1] * primeArray[i][2];
+		if (product == primeArray[i][0])
+		{
+			printf("Korrekt: %llu \t is %llu \t * %llu\n", primeArray[i][0], primeArray[i][1], primeArray[i][2]);
+		}
+		else
+		{
+			printf("Falsch: %llu \t is %llu \t * %llu\n", primeArray[i][0], primeArray[i][1], primeArray[i][2]);
+		}
 	}
 }
+
 #endif /* PRIMEARRAY_H_ */
