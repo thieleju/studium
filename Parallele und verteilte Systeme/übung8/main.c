@@ -18,7 +18,7 @@
  */
 void factors(unsigned long long number, unsigned long long *factor1, unsigned long long *factor2)
 {
-  unsigned long long factor = 2;
+  unsigned long long factor = 899999999;
   while (number > 1)
   {
     if (number % factor == 0)
@@ -29,17 +29,6 @@ void factors(unsigned long long number, unsigned long long *factor1, unsigned lo
     }
     factor++;
   }
-}
-
-/*
- * Gibt die aktuelle Zeit in Sekunden zurück.
- * @return aktuelle Zeit
- */
-double get_time2()
-{
-  struct timespec time;
-  clock_gettime(CLOCK_MONOTONIC, &time);
-  return time.tv_sec + (time.tv_nsec / 1000000000.0);
 }
 
 /*
