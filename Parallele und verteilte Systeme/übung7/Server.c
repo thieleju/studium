@@ -85,6 +85,7 @@ void exchangeSomeData(int connectionfd)
 
             char response[bufferSize];
             snprintf(response, bufferSize, "Invalid prime index %d", primeIndex);
+            return;
         }
 
         // Überprüfen, ob die gewünschte Primzahl in der Liste vorhanden ist
