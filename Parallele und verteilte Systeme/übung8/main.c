@@ -32,14 +32,25 @@ void factors(unsigned long long number, unsigned long long *factor1, unsigned lo
 }
 
 /*
- * Gibt die aktuelle Zeit zurück.
+ * Gibt die aktuelle Zeit in Sekunden zurück.
  * @return aktuelle Zeit
  */
-double get_time()
+double get_time2()
 {
   struct timespec time;
   clock_gettime(CLOCK_MONOTONIC, &time);
   return time.tv_sec + (time.tv_nsec / 1000000000.0);
+}
+
+/*
+ * Gibt die aktuelle Zeit in Sekunden zurück.
+ * @return aktuelle Zeit
+ */
+double get_time()
+{
+  struct rusage usage;
+  getrusage(RUSAGE_SELF, &usage);
+  return usage.ru_utime.tv_sec + (usage.ru_utime.tv_usec / 1000000.0);
 }
 
 /*
