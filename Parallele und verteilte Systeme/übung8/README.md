@@ -47,11 +47,14 @@ Wir testen nun den Leistungszugewinn durch Parallelisierung. Wir simulieren eine
 
 Hinweise: Code zum Messen der Laufzeit können Sie aus einer der vorigen Übungen kopieren. Um diese großen Zahlen zu verarbeiten, sollten Sie statt int den Datentyp unsigned long long verwenden. Da sich jede Ganzzahl als Produkt aus Potenzen von Primzahlen darstellen lässt und die beiden Faktoren der großen Zahl ohnehin prim sind, könnten Sie zur Optimierung nur Primzahlen statt ganzer Zahlen durchprobieren. Denken Sie daran, dass Sie Ihren Kindsprozessen irgendwie mitteilen müssen, welche Zahl vom jeweiligen Prozess nun zu faktorisieren ist. Wo ist der Unterschied, wenn Sie den Kindsprozessen die zu faktorisierenden Zahlen oder nur den Index des PrimeArrays übergeben? 
 
-Ergebnisse:
+
+Ergebnisse mit optimiertem Algorithmus + usage struct
 ```bash
-1 Prozess: Durchschnittliche Zeit pro Prozess: 1096.168978 Sekunden
-2 Prozesse: Durchschnittliche Zeit pro Prozess: 553.050939 Sekunden
-4 Prozesse: Durchschnittliche Zeit pro Prozess: 562.504496 Sekunden
-8 Prozesse: Durchschnittliche Zeit pro Prozess: 556.001394 Sekunden
-16 Prozesse: Durchschnittliche Zeit pro Prozess: 557.627291 Sekunden
+1 Prozess: Durchschnittliche Zeit pro Prozess: 111.834715 Sekunden
+2 Prozesse: Durchschnittliche Zeit pro Prozess: 57.993755 Sekunden
+4 Prozesse: Durchschnittliche Zeit pro Prozess: 34.542926 Sekunden
+8 Prozesse: Durchschnittliche Zeit pro Prozess: 17.226741 Sekunden 
+16 Prozesse: Durchschnittliche Zeit pro Prozess: 8.600457 Sekunden
 ```
+
+Da mein Prozessor 4 Kerne hat, ist 35 Sekunden bei 4 Prozessen der schnellste Weg die Zahlen zu faktorisieren.
