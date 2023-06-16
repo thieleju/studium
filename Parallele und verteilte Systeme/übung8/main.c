@@ -8,7 +8,7 @@
 #include "primeArray.h"
 
 // Anzahl der Kindsprozesse
-#define NUM_PROCESSES 1
+#define NUM_PROCESSES 4
 
 /*
  * Faktorisiert eine Zahl in zwei Faktoren.
