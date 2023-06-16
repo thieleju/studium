@@ -18,9 +18,7 @@
  */
 void factors(unsigned long long number, unsigned long long *factor1, unsigned long long *factor2)
 {
-  // Faktoren der Zahl number finden
   unsigned long long factor = 2;
-
   while (number > 1)
   {
     if (number % factor == 0)
@@ -58,26 +56,25 @@ void create_child_processes(int pipe_fd[][2], int time_pipe_fd[], int numbersPer
 
     if (pid == -1)
     {
-      perror("Fehler beim Forken");
+      perror("Failed to fork");
       exit(1);
     }
 
     if (pid == 0)
     {
-      // Kindsprozess
+      // Childprocess
       for (int j = 0; j < NUM_PROCESSES; j++)
       {
         close(pipe_fd[j][0]);
         if (j != i)
         {
-          // Schreibende der Pipe wird nur für die Pipes geschlossen,
-          // die nicht von diesem spezifischen Kindsprozess verwendet werden.
-          // -> sicherstellen, dass jeder Kindsprozess nur mit seiner eigenen Pipe kommuniziert.
+          // Close write end of pipes, that are not used by this child process
+          // This ensures that each child process only communicates with its own pipe
           close(pipe_fd[j][1]);
         }
       }
 
-      // Zahlen von Start bis Ende des zugewiesenen Bereichs faktorisieren
+      // Assign number ranges to child processes
       int start = i * numbersPerProcess;
       int end = start + numbersPerProcess;
 
@@ -105,12 +102,12 @@ void create_child_processes(int pipe_fd[][2], int time_pipe_fd[], int numbersPer
       double end_time = get_time();
       double elapsed_time = end_time - start_time;
 
-      // Verbrauchte Zeit in die Zeit-Pipe schreiben
+      // Write measured time to time pipe
       write(time_pipe_fd[1], &elapsed_time, sizeof(double));
 
       printf("==> FINISHED Kindprozess %d: %.6f Sekunden, Zahlen %d bis %d\n", i, elapsed_time, start, end);
 
-      // Pipes schließen
+      // Close write end of pipes
       close(pipe_fd[i][1]);
       close(time_pipe_fd[1]);
       exit(0);
@@ -140,65 +137,65 @@ void parent_receive_from_children(int pipe_fd[][2], int time_pipe_fd[], int numb
       primeArray[j][1] = factor1;
       primeArray[j][2] = factor2;
     }
-    // Lesende Seite der Pipe schließen
+    // Close read end of pipe
     close(pipe_fd[i][0]);
 
-    // Zeit von der Zeit-Pipe lesen
+    // Read measured time from time pipe
     double elapsed_time;
     read(time_pipe_fd[0], &elapsed_time, sizeof(double));
     elapsed_time_sum += elapsed_time;
 
-    // warten bis Kindprozess beendet ist
+    // wait for child process to finish
     wait(NULL);
   }
 
-  // Ausgabe der Primzahlen mit ihren Faktoren
+  // Print factor list 
   printFactorlist();
 
-  // Durchschnittliche Zeit berechnen und ausgeben
+  // Calculate average time per child process
   double average_time = elapsed_time_sum / NUM_PROCESSES;
   printf("Durchschnittliche Zeit pro Kindprozess: %.6f Sekunden\n", average_time);
 }
 
 /*
- * Main-Methode.
+ * Main-Method
  */
 int main()
 {
-  int pipe_fd[NUM_PROCESSES][2]; // Pipes für Faktoren
-  int time_pipe_fd[2];           // Pipe für Zeiten der Kindprozesse
+  int pipe_fd[NUM_PROCESSES][2]; 
+  int time_pipe_fd[2];
   int numbersPerProcess = SIZE / NUM_PROCESSES;
 
   setupArray();
 
-  // Pipes für Faktoren erstellen
+  // pipes for factors
   for (int i = 0; i < NUM_PROCESSES; i++)
   {
     if (pipe(pipe_fd[i]) == -1)
     {
-      perror("Fehler beim Erstellen der Pipe");
+      perror("Failed to create pipe");
       exit(1);
     }
   }
 
-  // Pipe für Zeiten erstellen
+  // pipe for time measurement
   if (pipe(time_pipe_fd) == -1)
   {
-    perror("Fehler beim Erstellen der Zeit-Pipe");
+    perror("Failed to create pipe");
     exit(1);
   }
 
-  // Kindprozesse erstellen
+  // create child processes
   create_child_processes(pipe_fd, time_pipe_fd, numbersPerProcess);
 
-  // Schreibende Seite der Pipes schließen
+  // Close write end of pipes
   for (int i = 0; i < NUM_PROCESSES; i++)
   {
     close(pipe_fd[i][1]);
   }
   close(time_pipe_fd[1]);
 
-  // Daten empfangen und ausgeben
+  // Receive data from child processes
   parent_receive_from_children(pipe_fd, time_pipe_fd, numbersPerProcess);
 
   return 0;
