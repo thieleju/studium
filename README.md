@@ -4,18 +4,20 @@ Codesammlung von Projekten für den Studiengang Software Design
 
 <br>
 
-| Ordner                          | Sprache        | Bezeichnung                            |
-| ------------------------------- | -------------- | -------------------------------------- |
-| Data Science                    | Python/Jupyter | Übungsaufgaben zum Modul               |
-| Datenbanken                     | SQL            | SQL-Anfragen aus der Übung             |
-| Grundlagen IT-Hardware          | Python         | Übungsaufgaben zum Modul               |
-| Parallele und verteilte Systeme | C              | Übungsaufgaben zum Modul               |
-| Programmiertechnik I            | Java           | Übungsaufgaben zum Modul               |
-| Programmiertechnik I            | Java           | Übungsaufgaben zum Modul               |
-| Programmiertechnik II           | Java           | Übungsaufgaben zum Modul               |
-| Programmiertechnik III          | Python/Jupyter | Übungsaufgaben zum Modul               |
-| Programmierung mit Python       | Python/Jupyter | Übungsaufgaben zum Wahlpflichtfach     |
-| Theoretische Informatik         | Shell          | Aufgaben zu regular expressions        |
-| sonstiges                       | Java & Python  | Wahlmodul DSP, Github Copilot tests... |
+| Ordner                          | Sprache           |
+| ------------------------------- | ----------------- |
+| Architektur und Entwurfsmuster  | Java              |
+| Data Science                    | Python/Jupyter    |
+| Datenbanken                     | SQL               |
+| Grundlagen IT-Hardware          | Python            |
+| Mensch-Maschine-Schnittstellen  | Markdown/Plantuml |
+| Parallele und verteilte Systeme | C                 |
+| Programmiertechnik I            | Java              |
+| Programmiertechnik I            | Java              |
+| Programmiertechnik II           | Java              |
+| Programmiertechnik III          | Python/Jupyter    |
+| Programmierung mit Python       | Python/Jupyter    |
+| Theoretische Informatik         | Shell             |
+| sonstiges                       | Java & Python     |
 
 <br>
