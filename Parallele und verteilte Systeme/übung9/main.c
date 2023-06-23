@@ -14,7 +14,7 @@
 
 void* doWork(void* arg)
 {
-  // Extract thread data from void* parameter
+  // Extract int variable from void* parameter
   int i = *(int*)arg;
   unsigned long long number = primeArray[i][0];
   unsigned long long factor1, factor2;
@@ -57,7 +57,6 @@ int main()
 
  // wait for all threads to finish
   for (int i = 0; i < NUM_THREADS; i++) {
-    // check if thread join was successful
     if (pthread_join(threads[i], NULL))
     {
       perror("Error joining thread\n");
