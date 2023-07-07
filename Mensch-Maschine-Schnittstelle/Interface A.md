@@ -1,6 +1,185 @@
 @startuml
 top to bottom direction
 
+state Veranstaltung_Anpassen {
+  [*] --> A_Alle
+  A_Alle --> A_Datum_ab : Dreh +1
+  A_Datum_ab --> A_Alle : Dreh -1
+
+  A_Datum_ab --> A_Uhrzeit_ab : Dreh +1
+  A_Uhrzeit_ab --> A_Datum_ab : Dreh -1
+
+  A_Uhrzeit_ab --> A_Uhrzeit_bis : Dreh +1
+  A_Uhrzeit_bis --> A_Uhrzeit_ab : Dreh -1
+
+  A_Uhrzeit_bis --> A_Datum_bis : Dreh +1
+  A_Datum_bis --> A_Uhrzeit_bis : Dreh -1
+
+  A_Datum_bis --> A_Alle : Dreh +1
+  A_Alle --> A_Datum_bis : Dreh -1
+
+  A_Alle --> S_Alle : Ok
+  S_Alle --> A_Alle : Zurück
+
+  state S_Alle {
+    [*] --> Alle
+    Alle --> Heizkörper : Dreh +1
+    Heizkörper --> Alle : Dreh -1
+
+    Heizkörper --> Fußbodenheizung : Dreh +1
+    Fußbodenheizung --> Heizkörper : Dreh -1
+
+    Fußbodenheizung --> Warmwasser : Dreh +1
+    Warmwasser --> Fußbodenheizung : Dreh -1
+
+    Warmwasser --> Alle : Dreh +1
+    Alle --> Warmwasser : Dreh -1
+
+    Alle --> [*] : Ok, Zurück
+    Heizkörper --> [*] : Ok, Zurück
+    Fußbodenheizung --> [*] : Ok, Zurück
+    Warmwasser --> [*] : Ok, Zurück
+  }
+
+  A_Datum_ab --> S_Datum_ab : Ok
+  S_Datum_ab --> A_Datum_ab : Zurück
+
+  state S_Datum_ab {
+    [*] --> Datum_Tag
+    Datum_Tag --> Datum_Tag : Dreh +1, Dreh -1
+    Datum_Tag --> Datum_Monat : Ok
+    Datum_Monat --> Datum_Tag : Zurück
+    Datum_Monat --> Datum_Monat : Dreh +1, Dreh -1
+    Datum_Monat --> Datum_Jahr : Ok
+    Datum_Jahr --> Datum_Monat : Zurück
+    Datum_Jahr --> Datum_Jahr : Dreh +1, Dreh -1
+    Datum_Jahr --> [*] : Ok
+    Datum_Tag --> [*] : Zurück
+  }
+
+  A_Uhrzeit_ab --> S_Uhrzeit_ab : Ok
+  S_Uhrzeit_ab --> A_Uhrzeit_ab : Zurück
+
+  state S_Uhrzeit_ab {
+    [*] --> Uhrzeit_Stunden
+    Uhrzeit_Stunden --> Uhrzeit_Stunden : Dreh +1, Dreh -1
+    Uhrzeit_Stunden --> Uhrzeit_Minuten : Ok
+    Uhrzeit_Minuten --> Uhrzeit_Stunden : Zurück
+    Uhrzeit_Minuten --> Uhrzeit_Minuten : Dreh +1, Dreh -1
+    Uhrzeit_Minuten --> [*] : Ok
+    Uhrzeit_Stunden --> [*] : Zurück
+  }
+
+
+
+}
+
+@enduml
+
+state Wochenplaner {
+  [*] --> Auswahl_Montag
+  Auswahl_Montag --> Auswahl_Dienstag : Dreh +1
+  Auswahl_Montag --> Auswahl_Sonntag : Dreh -1
+  Auswahl_Dienstag --> Auswahl_Montag : Dreh -1
+  Auswahl_Dienstag --> Auswahl_Mittwoch : Dreh +1
+  Auswahl_Mittwoch --> Auswahl_Dienstag : Dreh -1
+  Auswahl_Mittwoch --> Auswahl_Donnerstag : Dreh +1
+  Auswahl_Donnerstag --> Auswahl_Mittwoch : Dreh -1
+  Auswahl_Donnerstag --> Auswahl_Freitag : Dreh +1
+  Auswahl_Freitag --> Auswahl_Donnerstag : Dreh -1
+  Auswahl_Freitag --> Auswahl_Samstag : Dreh +1
+  Auswahl_Samstag --> Auswahl_Freitag : Dreh -1
+  Auswahl_Samstag --> Auswahl_Sonntag : Dreh +1
+  Auswahl_Sonntag --> Auswahl_Samstag : Dreh -1
+  Auswahl_Sonntag --> Auswahl_Montag : Dreh +1
+
+  Auswahl_Montag --> Einstellungen_Tag : Ok
+  Einstellungen_Tag --> Auswahl_Montag : Zurück
+
+
+  state Einstellungen_Tag {
+    [*] --> Slider1 
+    Slider1 --> Slider1 : Dreh +1, Dreh -1
+    Slider1 --> Slider2 : Ok
+    Slider2 --> Slider1 : Zurück
+    Slider2 --> Slider2 : Dreh +1, Dreh -1
+    Slider1 --> [*] : Zurück
+    Slider2 --> [*] : Ok
+  }
+
+}
+
+
+
+
+
+state Startbildschirm {
+  [*] --> Heizkörper_WTemperatur
+  Heizkörper_WTemperatur --> Einstellungen : Dreh -1
+  Heizkörper_WTemperatur --> Heizkörper_ATemperatur : Dreh +1
+  Heizkörper_WTemperatur --> Heizkörper_WTemperatur_Anpassen : Ok
+  Heizkörper_WTemperatur_Anpassen --> Heizkörper_WTemperatur : Zurück
+
+  Heizkörper_ATemperatur --> Heizkörper_WTemperatur : Dreh -1
+  Heizkörper_ATemperatur --> Heizkörper_Wochenplaner : Dreh +1
+  Heizkörper_ATemperatur --> Heizkörper_ATemperatur_Anpassen : Ok
+  Heizkörper_ATemperatur_Anpassen --> Heizkörper_ATemperatur : Zurück
+
+  Heizkörper_Wochenplaner --> Heizkörper_ATemperatur : Dreh -1
+  Heizkörper_Wochenplaner --> Fußbodenheizung_WTemperatur : Dreh +1
+  Heizkörper_Wochenplaner --> Heizkörper_Wochenplaner_Anpassen : Ok
+  Heizkörper_Wochenplaner_Anpassen --> Heizkörper_Wochenplaner : Zurück
+
+  Fußbodenheizung_WTemperatur --> Heizkörper_Wochenplaner : Dreh -1
+  Fußbodenheizung_WTemperatur --> Fußbodenheizung_ATemperatur : Dreh +1
+  Fußbodenheizung_WTemperatur --> Fußbodenheizung_Wochenplaner : Ok
+  Fußbodenheizung_Wochenplaner --> Fußbodenheizung_WTemperatur : Zurück
+
+  Fußbodenheizung_ATemperatur --> Fußbodenheizung_WTemperatur : Dreh -1
+  Fußbodenheizung_ATemperatur --> Fußbodenheizung_Wochenplaner : Dreh +1
+  Fußbodenheizung_ATemperatur --> Fußbodenheizung_ATemperatur_Anpassen : Ok
+  Fußbodenheizung_ATemperatur_Anpassen --> Fußbodenheizung_ATemperatur : Zurück
+
+
+  Fußbodenheizung_Wochenplaner --> Fußbodenheizung_ATemperatur : Dreh -1
+  Fußbodenheizung_Wochenplaner --> Warmwasser_WTemperatur : Dreh +1
+  Fußbodenheizung_Wochenplaner --> Fußbodenheizung_Wochenplaner_Anpassen : Ok
+  Fußbodenheizung_Wochenplaner_Anpassen --> Fußbodenheizung_Wochenplaner : Zurück
+
+  Warmwasser_WTemperatur --> Fußbodenheizung_Wochenplaner : Dreh -1
+  Warmwasser_WTemperatur --> Warmwasser_Frostschutz : Dreh +1
+  Warmwasser_WTemperatur --> Warmwasser_Wochenplaner : Ok
+  Warmwasser_Wochenplaner --> Warmwasser_WTemperatur : Zurück
+
+  Warmwasser_Frostschutz --> Warmwasser_WTemperatur : Dreh -1
+  Warmwasser_Frostschutz --> Warmwasser_Wochenplaner : Dreh +1
+  Warmwasser_Frostschutz --> Warmwasser_Frostschutz_Anpassen : Ok
+  Warmwasser_Frostschutz_Anpassen --> Warmwasser_Frostschutz : Zurück
+
+  Warmwasser_Wochenplaner --> Warmwasser_Frostschutz : Dreh -1
+  Warmwasser_Wochenplaner --> M_Veranstaltung : Dreh +1
+  Warmwasser_Wochenplaner --> Warmwasser_Wochenplaner_Anpassen : Ok
+  Warmwasser_Wochenplaner_Anpassen --> Warmwasser_Wochenplaner : Zurück
+
+  M_Veranstaltung --> Warmwasser_Wochenplaner : Dreh -1
+  M_Veranstaltung --> M_Abwesenheit : Dreh +1
+  M_Veranstaltung --> M_Veranstaltung_Anpassen : Ok
+  M_Veranstaltung_Anpassen --> M_Veranstaltung : Zurück
+
+  M_Abwesenheit --> M_Veranstaltung : Dreh -1
+  M_Abwesenheit --> Einstellungen : Dreh +1
+  M_Abwesenheit --> M_Abwesenheit_Anpassen : Ok
+  M_Abwesenheit_Anpassen --> M_Abwesenheit : Zurück
+
+  Einstellungen --> M_Abwesenheit : Dreh -1
+  Einstellungen --> Heizkörper_WTemperatur : Dreh +1
+  Einstellungen --> Einstellungen_Anpassen : Ok
+  Einstellungen_Anpassen --> Einstellungen : Zurück
+}
+
+
+
+
 state Wochenplaner {
   [*] --> Wochentage
   Wochentage -d-> Optionen : Montag
@@ -61,7 +240,7 @@ state Wochenplaner {
   
 }
 
-@enduml
+
 
 @startuml
 top to bottom direction
