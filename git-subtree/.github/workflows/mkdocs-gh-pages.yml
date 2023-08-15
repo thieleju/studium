@@ -1,0 +1,70 @@
+name: Publish MkDocs via GitHub Pages
+on:
+  push:
+    branches:
+      - main
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+
+      - name: Install Dependencies
+        run: |
+          pip install --upgrade pip 
+          pip install mkdocs
+          pip install mkdocs-gen-files
+          pip install mkdocs-material
+          pip install mkdocs-with-pdf
+
+      - name: Setup Git Config
+        run: |
+          git config user.name 'mkdocs-deploy' 
+          git config user.email 'mkdocs-deploy@noreply.github.com'
+
+      - name: Deploy docs to gh-pages branch
+        run: mkdocs gh-deploy --config-file docs/mkdocs.yml
+
+      - name: Upload PDF Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: MkDocsPDF
+          path: /home/runner/work/ATM/ATM/docs/site/docs.pdf
+# release-pdf:
+#     name: Release PDF
+#     runs-on: ubuntu-latest
+#     needs: build
+#     steps:
+#       - name: Download PDF artifact
+#         uses: actions/download-artifact@v3
+#         with:
+#           name: MkDocsPDF
+
+#       - name: Create GitHub Release
+#         id: create_release
+#         uses: actions/create-release@v1
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         with:
+#           tag_name: v${{github.run_number}}
+#           release_name: Release v${{github.run_number}}
+
+#       - name: Upload asset to GitHub Release
+#         uses: actions/upload-release-asset@v2
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         with:
+#           upload_url: ${{ steps.create_release.outputs.upload_url }}
+#           asset_path: ./MkDocsPDF
+#           asset_name: docs-v${{github.run_number}}.zip
+#           asset_content_type: application/zip
