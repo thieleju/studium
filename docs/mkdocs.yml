@@ -1,0 +1,31 @@
+site_name: ATM Dokumentation
+site_url: https://atm.node5.de
+
+nav:
+  - Startseite: index.md
+  - Anforderungsdokumentation: requirements-docs.md
+  - Architekturdokumentation: architecture-docs.md
+  - Testdokumentation: test-docs.md
+  - Abnahmedokumentation: acceptance-docs.md
+  - Benutzerdokumentation: user-docs.md
+  - Projektdokumentation: project-docs.md
+  - Codedokumentation:
+      - Ist-Dokumentation: codedocs/is-docs.md
+      - Delta-Dokumentation: codedocs/delta-docs.md
+
+theme:
+  name: material
+
+plugins:
+  - search
+  - with-pdf:
+      author: Die Panzerknacker
+      copyright: © 2022 Die Panzerknacker
+      cover_title: ATM Dokumentation
+      cover_subtitle: Die Panzerknacker
+      toc_title: Inhaltsverzeichnis
+      heading_shift: true
+      #toc_level: 3
+      #ordered_chapter_level: 2
+      #two_columns_level: 3
+      output_path: docs.pdf
