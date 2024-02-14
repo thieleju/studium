@@ -1,0 +1,144 @@
+# Definiert die Ausführungsstufen in der Pipeline
+stages:
+  - delete_package
+  - package
+  - sast
+  - sca-package
+  - publish
+  - sca-container
+  - dast_zap
+  - deploy
+
+  # Variablen, die in der Pipeline verwendet werden können
+variables:
+  DOCKER_NAME: "juice-shop" # must be lowercase
+  DOCKER_TAG: "latest"
+  DOCKER_FILE: "Dockerfile"
+  DOCKER_HOST: tcp://10.97.2.116:2375
+  DOCKER_REGISTRY: "10.97.2.116:5000"
+  DOCKER_TLS_CERTDIR: ""
+
+### Stage Package ###
+# 1. Install dependencies and build project
+# 2. Configure npmrc for the gitlab package registry
+# 3. Delete old registry package
+# 4. Upload new package to gitlab package registry
+package:
+  stage: package
+  image: node:18
+  before_script:
+    - apt-get update
+    - apt-get install -y jq
+  script:
+    - |
+      npm install > package.log
+      npm config set @gitlab-ci:registry $CI_API_V4_URL/packages/npm/
+      echo "//lv-gitlab.intern.th-ab.de/api/v4/projects/682/packages/npm/:_authToken=\${CI_JOB_TOKEN}" >> ~/.npmrc
+      RESPONSE=$(curl --header "PRIVATE-TOKEN: ${CI_PAT}" "${CI_API_V4_URL}/projects/682/packages?package_name=${DOCKER_NAME}")
+      echo "$RESPONSE"
+      if [[ $(echo "$RESPONSE" | jq 'length') -eq 0 ]]; then
+        echo "No package found. Skipping delete steps."
+      else
+        PACKAGE_ID=$(echo "$RESPONSE" | jq -r '.[0].id')
+        curl --header "PRIVATE-TOKEN: ${CI_PAT}" --request DELETE "$CI_API_V4_URL/projects/682/packages/${PACKAGE_ID}" >> package.log
+      fi
+      npm publish --registry=$CI_API_V4_URL/projects/682/packages/npm/ --access public >> package.log
+  artifacts:
+    paths:
+      - package.log
+  dependencies: []
+
+### Stage SAST ###
+sast-semgrep:
+  stage: sast
+  image: returntocorp/semgrep:latest
+  script:
+    - echo "Running Semgrep"
+    - semgrep --verbose --config=p/security-audit --metrics=off . --json > semgrep-results.json
+  artifacts:
+    paths:
+      - semgrep-results.json
+  dependencies: []
+
+sast-gitleaks:
+  stage: sast
+  needs: ["sast-semgrep"]
+  image:
+    name: "zricethezav/gitleaks"
+    entrypoint: [""]
+  script:
+    - echo "Running Gitleaks"
+    - gitleaks detect --source . --exit-code 0 --verbose --report-path=gitleaks-report.json
+  artifacts:
+    paths:
+      - gitleaks-report.json
+  dependencies: []
+
+### Stage SCA Package ###
+sca-package-dependency-check:
+  stage: sca-package
+  image:
+    name: owasp/dependency-check:latest
+    entrypoint: [""]
+  script:
+    - /usr/share/dependency-check/bin/dependency-check.sh --scan . --format JSON --out= . --disableArchive # --enableExperimental
+  artifacts:
+    when: always
+    paths:
+      - dependency-check-report.json
+  dependencies: []
+
+### Stage Publish ###
+publish-container:
+  stage: publish
+  image: docker:stable
+  script:
+    - docker build -f $DOCKER_FILE -t $DOCKER_REGISTRY/$DOCKER_NAME:$DOCKER_TAG . > publish-container.log
+    - docker push $DOCKER_REGISTRY/$DOCKER_NAME:$DOCKER_TAG >> publish-container.log
+  artifacts:
+    paths:
+      - publish-container.log
+  dependencies: []
+
+### Stage SCA Container ###
+sca-container-trivy:
+  stage: sca-container
+  image:
+    name: aquasec/trivy:latest
+    entrypoint: [""]
+  script:
+    - trivy image --format json -o trivy-report.json $DOCKER_REGISTRY/$DOCKER_NAME:$DOCKER_TAG
+  artifacts:
+    paths:
+      - trivy-report.json
+  dependencies: []
+
+### Stage dast-zap ###
+dast-zap:
+  stage: dast_zap
+  image:
+    name: owasp/zap2docker-stable
+    entrypoint: [""]
+  services:
+    - name: $DOCKER_REGISTRY/$DOCKER_NAME:$DOCKER_TAG
+      alias: juice-shop
+  script:
+    - sleep 60 # give some time for juice-shop to start
+    - mkdir /zap/wrk/
+    - zap-full-scan.py -I -J /zap/wrk/dast-zap-report.json -t http://juice-shop:3000
+    - cp /zap/wrk/dast-zap-report.json .
+  artifacts:
+    paths:
+      - dast-zap-report.json
+  dependencies: []
+
+# Definiert den Deployment-Job
+deploy:
+  stage: deploy
+  image: docker:stable
+  script:
+    - docker service update --image $DOCKER_REGISTRY/$DOCKER_NAME:$DOCKER_TAG $DOCKER_NAME > deploy.log
+  artifacts:
+    paths:
+      - deploy.log
+  dependencies: []
