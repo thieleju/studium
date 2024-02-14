@@ -10,6 +10,7 @@ Codesammlung von Projekten für den Studiengang Software Design
 | Data Science                    | Python/Jupyter    |
 | Datenbanken                     | SQL               |
 | Grundlagen IT-Hardware          | Python            |
+| IT-Sicherheit                   | Yaml              |
 | Mensch-Maschine-Schnittstellen  | Markdown/Plantuml |
 | Parallele und verteilte Systeme | C                 |
 | Programmiertechnik I            | Java              |
