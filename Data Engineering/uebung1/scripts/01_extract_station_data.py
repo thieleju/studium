@@ -25,8 +25,6 @@ def main():
     with open(file_stations, "r", encoding="cp1252") as f:
         write_line_to_file(file_stations_out, "\t".join(headers_out))
 
-        stations_data = []
-
         for i, line in enumerate(f):
             if i % 100 == 0:
                 print(f"Processing lines {i} - {i+100}...")
@@ -45,18 +43,9 @@ def main():
             # Split station name and state based on the last space
             station_name, state = station_name_state.rsplit(" ", 1)
 
-            # Append extracted data as a dictionary to the list
-            stations_data.append({
-                "STATIONS_ID": station_id,
-                "NAME": station_name,
-                "FEDERAL_STATE": state,
-            })
-
-        # Write extracted data to the output file
-        for station in stations_data:
-            line = "\t".join([station[header] for header in headers_out])
+            # write line to file
+            line = "\t".join([station_id, station_name, state])
             write_line_to_file(file_stations_out, line)
-
 
 def write_line_to_file(file, line):
     with open(file, "a", encoding="utf-8") as f_out:
