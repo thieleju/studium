@@ -1,5 +1,4 @@
 import os
-import re 
 
 # Encoding is cp1252
 file_stations = "../data_raw/KL_Tageswerte_Beschreibung_Stationen.txt" 
