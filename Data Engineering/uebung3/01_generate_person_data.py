@@ -1,7 +1,10 @@
 from faker import Faker
 import json
 import os
-os.chdir("/home/student/Projects/DENG/E3/raw_data")
+
+os.chdir("raw_data")
+
+
 fake = Faker()
 userid = 1
 
