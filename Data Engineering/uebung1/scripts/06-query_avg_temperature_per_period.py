@@ -11,8 +11,11 @@ DB_NAME="data_engineering"
 DB_USER="postgres"
 DB_PASSWORD = os.environ.get('POSTGRES_PASSWORD')
 
-data_source = "../data_processed/Daily_Values_Temperature_Measurements.tsv"
-file_sql = "03-define_tables_DB_tempmeas.sql"
+destination_file = "../data_processed/Average_daily_temperatures_per_period_for_bavaria.tsv"
+header_destination = ["TIME_PERIOD", "AVG_TEMPERATURE","COUNT_DATAPOINTS"]
+time_period1 = ["1960-01-01", "1980-12-31"]
+time_period2 = ["2000-01-01", "2020-12-31"]
+state = "Bayern"
 
 def main():
     conn = None
@@ -34,45 +37,45 @@ def main():
 
     # Create cursor to execute queries
     cur = conn.cursor()
+    query1 = f"select avg(temperature_average), count(temperature_average)  from temperature_measurements where date between '{time_period1[0]}' and '{time_period1[1]}' and station_id in (select station_id from stations where federal_state_id in (select federal_state_id from federal_states where name = '{state}'));"
 
-    try:
-        cur.execute("DELETE FROM temperature_measurements;")
-    except Exception as e:
-        print("Error deleting temperature measurements:", e)
+    query2 = f"select avg(temperature_average), count(temperature_average)  from temperature_measurements where date between '{time_period2[0]}' and '{time_period2[1]}' and station_id in (select station_id from stations where federal_state_id in (select federal_state_id from federal_states where name = '{state}'));"
 
-    list_to_insert = []
-    counter = 0
-    with open(data_source, 'r') as file:
-        reader = csv.reader(file, delimiter='\t')
-        # Skip the header
-        next(reader)
-        for line in reader:
-            counter += 1
-            station = line[0]
-            day = line[1]
-            temp = float(line[2])
-            day_formatted = day[0:4] + "-" + day[4:6] + "-" + day[6:8]
-            list_to_insert.append((counter,day_formatted, temp,station))
-    
-    list_for_db_insert = tuple(list_to_insert)
-    print("- Temperature measurements element example: ", list_for_db_insert[0])
+    print("Query1: ",query1)
+    cur.execute(query1)
+    result1 = cur.fetchone()
+    print("- Result1: ",result1)
+    if result1 == None:
+        result1 = (0,0)
+        print("ERROR: Result1 is None")
 
-    # insert 1000 rows at a time
-    for i in range(0, len(list_for_db_insert), 1000):
-        try:
-            cur.executemany("INSERT INTO temperature_measurements (measurement_id, date, temperature_average,station_id) VALUES (%s, %s, %s, %s);", list_for_db_insert[i:i+1000])
-            print("Inserted ", i, " rows to the database.")
-        except Exception as e:
-            print("Error inserting temperature measurements:", e)
+    print("Query2: ",query2)
+    cur.execute(query2)
+    result2 = cur.fetchone()
+    print("- Result2: ",result2)
+    if result2 == None:
+        result2 = (0,0)
+        print("ERROR: Result2 is None")
 
+    # Write the results to the output file
+    df = open(destination_file, "w",encoding="utf-8")
+    df.write("\t".join(header_destination) + "\n")
 
-    print("Written ", counter, " rows to the database.")
+    label1 = time_period1[0] + "/" + time_period1[1]
+    label2 = time_period2[0] + "/" + time_period2[1]
 
-    conn.commit()
+    df.write("\t".join([label1, str(round(result1[0],2)), str(round(result1[1],2))]) + "\n")
+    df.write("\t".join([label2, str(round(result2[0],2)), str(round(result2[1],2))]) + "\n")
+
+    print("\n=> Results written to", destination_file)
+
+    # print content of destination file
+    df = open(destination_file, "r",encoding="utf-8")
+    print(df.read())
+
+    df.close()
     cur.close()
     conn.close()
-
-    
 
 if __name__ == "__main__":
     main()
