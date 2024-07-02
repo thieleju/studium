@@ -1,0 +1,21 @@
+use personDB
+db.personCollection.insertOne( {
+								 id: 1,
+								 first_name: "Ute",
+								 last_name: "Mustermann",
+                                 communication_channels: [
+								    {type: "mobile phone", identifier: "0160/1111111"},
+									{type: "e-mail", identifier: "ute.mustermann@web.de"}
+									]
+								} )
+
+db.personCollection.insertOne( {
+								 id: 2,
+								 first_name: "Max",
+								 last_name: "Beispiel",
+								 communication_channels: [
+								    {type: "mobile phone", identifier: "0160/2222222"}
+									]
+								} )
+
+# check via: db.personCollection.find( {} )
