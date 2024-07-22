@@ -1,14 +1,19 @@
 import { useState } from "react";
+import EnrolmentForm from "./EnrolmentForm";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [program, setProgram] = useState("");
 
   return (
     <>
-      <h1>count is {count}</h1>
-      <button onClick={() => setCount(count + 1)}>Click to Add one</button>
+      <select type="text" onChange={(e) => setProgram(e.target.value)}>
+        <option value="UG">UG</option>
+        <option value="PG">PG</option>
+      </select>
+      <EnrolmentForm program={program} />
     </>
   );
 }
 
 export default App;
+
