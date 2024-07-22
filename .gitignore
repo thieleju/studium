@@ -32,3 +32,6 @@ Data \Engineering/uebung2/.env
 
 *.gz
 *-ubyte
+
+node_modules
+dist
