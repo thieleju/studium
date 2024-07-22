@@ -20,6 +20,7 @@ Codesammlung von Projekten für den Studiengang Software Design
 | Programmiertechnik III          | Python/Jupyter    |
 | Programmierung mit Python       | Python/Jupyter    |
 | Theoretische Informatik         | Shell             |
+| Web-Technologien                | HTML/CSS/JS       |
 | sonstiges                       | Java & Python     |
 
 <br>
