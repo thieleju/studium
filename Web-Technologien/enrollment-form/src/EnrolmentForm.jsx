@@ -1,8 +1,6 @@
-/* eslint-disable react/prop-types */
-
 import { useState } from "react";
 
-const EnrolmentForm = ({ program }) => {
+function EnrolmentForm({ program }) {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -18,6 +16,7 @@ const EnrolmentForm = ({ program }) => {
       <form onSubmit={handleSubmit}>
         <label htmlFor="firstName">First Name:</label>
         <input
+          id="firstName"
           type="text"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
@@ -25,6 +24,7 @@ const EnrolmentForm = ({ program }) => {
         <br />
         <label htmlFor="email">Email:</label>
         <input
+          id="email"
           type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -36,9 +36,6 @@ const EnrolmentForm = ({ program }) => {
       </form>
     </div>
   );
-};
+}
 
 export default EnrolmentForm;
-
-
-
